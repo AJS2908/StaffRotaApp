@@ -62,6 +62,7 @@
         android:id="@+id/LoginCancel"
         android:layout_width="155dp"
         android:layout_height="57dp"
+        android:onClick="ButtonCancel"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

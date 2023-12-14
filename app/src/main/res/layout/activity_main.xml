@@ -8,11 +8,12 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/LoginButton"
         android:layout_width="238dp"
         android:layout_height="77dp"
         android:backgroundTint="#009688"
         android:fontFamily="@font/amaranth"
+        android:onClick="ButtonLogin"
         android:text="Login"
         android:textAlignment="center"
         android:textSize="40sp"
@@ -27,7 +28,7 @@
         android:id="@+id/imageView3"
         android:layout_width="350dp"
         android:layout_height="320dp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/LoginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,12 +42,13 @@
         android:layout_height="93dp"
         android:backgroundTint="#64AEC1"
         android:fontFamily="@font/amaranth"
+        android:onClick="ButtonRegister"
         android:text="Register Here"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/LoginButton"
         app:layout_constraintVertical_bias="0.539" />
 
     <ImageView
@@ -67,10 +69,10 @@
         android:layout_height="71dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.897"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.86"
+        app:layout_constraintVertical_bias="0.856"
         app:srcCompat="@drawable/pen_decal__1_" />
 
     <ImageView

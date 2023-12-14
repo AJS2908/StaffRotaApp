@@ -5,16 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 
-class LoginScreen : AppCompatActivity() {
+class Register : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_screen)
+        setContentView(R.layout.activity_register)
+
+
+        fun ButtonCancelRegister (View: View){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
     }
-
-    fun ButtonCancel (View: View){
-
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-    }
-
 }
