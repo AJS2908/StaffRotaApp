@@ -37,18 +37,17 @@
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="186dp"
-        android:layout_height="69dp"
+        android:layout_width="209dp"
+        android:layout_height="93dp"
         android:backgroundTint="#64AEC1"
         android:fontFamily="@font/amaranth"
         android:text="Register Here"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.515" />
+        app:layout_constraintVertical_bias="0.539" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -68,10 +67,10 @@
         android:layout_height="71dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.914"
+        app:layout_constraintHorizontal_bias="0.897"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.904"
+        app:layout_constraintVertical_bias="0.86"
         app:srcCompat="@drawable/pen_decal__1_" />
 
     <ImageView
