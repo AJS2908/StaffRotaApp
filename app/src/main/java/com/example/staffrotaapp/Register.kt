@@ -11,10 +11,13 @@ class Register : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
 
-        fun ButtonCancelRegister (View: View){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
     }
+
+    fun ButtonCancelRegister (View: View){
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+
+
+
 }
