@@ -5,19 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 
-class LoginScreen : AppCompatActivity() {
+class Profile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_screen)
+        setContentView(R.layout.activity_profile)
     }
 
-    fun ButtonCancel (View: View){
-
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-    }
-
-    fun ButtonSubmitLogin (View: View){
+    fun ButtonReturnHome (View: View){
 
         val intent = Intent(this, HomeScreen::class.java)
         startActivity(intent)
