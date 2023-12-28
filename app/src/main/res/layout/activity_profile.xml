@@ -10,8 +10,8 @@
     <Button
         android:id="@+id/button2"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="412dp"
-        android:layout_height="45dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:onClick="ButtonReturnHome"
         android:text="Your Profile"
         app:icon="@drawable/pngtreegray_triangle_back_button_element_4647098"
