@@ -22,34 +22,19 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.721" />
+        app:layout_constraintVertical_bias="0.799" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="318dp"
         android:layout_height="247dp"
-        app:layout_constraintBottom_toTopOf="@+id/LoginButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.664"
-        app:srcCompat="@drawable/time_smith_logo" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="209dp"
-        android:layout_height="93dp"
-        android:backgroundTint="#64AEC1"
-        android:fontFamily="@font/amaranth"
-        android:onClick="ButtonRegister"
-        android:text="Register Here"
-        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginButton"
-        app:layout_constraintVertical_bias="0.539" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.365"
+        app:srcCompat="@drawable/time_smith_logo" />
 
     <ImageView
         android:id="@+id/imageView4"
