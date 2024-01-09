@@ -21,9 +21,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun ButtonRegister (View: View){
-        val intent = Intent(this, Register::class.java)
-        startActivity(intent)
-    }
+
 
 }

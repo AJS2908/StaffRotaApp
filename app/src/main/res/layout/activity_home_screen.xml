@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#91BDBD"
     tools:context=".HomeScreen">
 
     <Button
@@ -23,22 +23,22 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="389dp"
+        android:layout_height="351dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.195"
-        app:srcCompat="@drawable/smalllogo" />
+        app:srcCompat="@drawable/timesmith__2__removebg_preview" />
 
     <Button
         android:id="@+id/ProfileBut"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="149dp"
         android:layout_height="94dp"
-        android:text="Your Profile"
         android:onClick="ButtonProfile"
+        android:text="Your Profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.11"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:backgroundTint="#B5ECEA"
+    android:backgroundTint="#91BDBD"
     tools:context=".LoginScreen">
 
     <ImageView
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/smalllogo" />
+        app:srcCompat="@drawable/time_smith_logo" />
 
     <TextView
         android:id="@+id/textView"
@@ -50,14 +50,16 @@
         android:id="@+id/LoginSubmit"
         android:layout_width="165dp"
         android:layout_height="59dp"
-        android:text="Submit"
+        android:background="#000000"
+        android:backgroundTint="#000000"
         android:onClick="ButtonSubmitLogin"
+        android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toEndOf="@+id/LoginCancel"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.735" />
+        app:layout_constraintVertical_bias="0.87" />
 
     <EditText
         android:id="@+id/Password"
@@ -98,13 +100,15 @@
         android:id="@+id/LoginCancel"
         android:layout_width="155dp"
         android:layout_height="57dp"
+        android:background="#000000"
+        android:backgroundTint="#000000"
         android:onClick="ButtonCancel"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.732" />
+        app:layout_constraintVertical_bias="0.867" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

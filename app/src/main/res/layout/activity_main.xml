@@ -26,15 +26,15 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="0dp"
-        android:layout_height="320dp"
+        android:layout_width="318dp"
+        android:layout_height="247dp"
         app:layout_constraintBottom_toTopOf="@+id/LoginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.664"
-        app:srcCompat="@drawable/timesmith__2_" />
+        app:srcCompat="@drawable/time_smith_logo" />
 
     <Button
         android:id="@+id/button3"
@@ -61,7 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.975"
-        app:srcCompat="@drawable/notebookld" />
+        app:srcCompat="@drawable/notebookld_removebg_preview" />
 
     <ImageView
         android:id="@+id/imageView5"
@@ -73,7 +73,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.856"
-        app:srcCompat="@drawable/pen_decal__1_" />
+        app:srcCompat="@drawable/pen_decal_removebg_preview" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -85,19 +85,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.048"
-        app:srcCompat="@drawable/squiggle" />
+        app:srcCompat="@drawable/squiggle_removebg_preview" />
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="78dp"
-        android:layout_height="83dp"
+        android:layout_width="120dp"
+        android:layout_height="78dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.825"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.086"
-        app:srcCompat="@drawable/notebookrd" />
+        app:srcCompat="@drawable/notebookld_removebg_preview" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -109,7 +109,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.618"
-        app:srcCompat="@drawable/pen_decal__1_" />
+        app:srcCompat="@drawable/pen_decal_removebg_preview" />
 
     <ImageView
         android:id="@+id/imageView9"
@@ -121,6 +121,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.573"
-        app:srcCompat="@drawable/squiggle" />
+        app:srcCompat="@drawable/squiggle_removebg_preview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
