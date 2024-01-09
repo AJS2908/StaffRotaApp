@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#91BDBD"
-    tools:context=".ViewAdminAccounts">
+    android:backgroundTint="#91BDBD"
+    tools:context=".AdminProfile">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
