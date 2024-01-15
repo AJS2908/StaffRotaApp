@@ -8,6 +8,19 @@
     android:backgroundTint="#91BDBD"
     tools:context=".AddNewAdmin">
 
+    <Button
+        android:id="@+id/addNewAddAccount"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="310dp"
+        android:layout_height="72dp"
+        android:text="Add Admin Profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.902" />
+
     <EditText
         android:id="@+id/adminNINumber"
         android:layout_width="295dp"
@@ -37,7 +50,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/username3"
+        android:id="@+id/username"
         android:layout_width="295dp"
         android:layout_height="81dp"
         android:layout_marginStart="56dp"
@@ -68,7 +81,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/password3"
+        android:id="@+id/password"
         android:layout_width="295dp"
         android:layout_height="81dp"
         android:layout_marginStart="56dp"

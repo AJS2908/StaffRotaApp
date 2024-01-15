@@ -16,9 +16,15 @@ class OwnerHome : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val ViewOwnerProfbut: Button = findViewById(R.id.ownerViewProfile)
+        ViewOwnerProfbut.setOnClickListener {
+            val intent = Intent(this, OwnerProfile::class.java)
+            startActivity(intent)
+        }
+
         val OwnerLogOutbut: Button = findViewById(R.id.ownerLogoutBut)
         OwnerLogOutbut.setOnClickListener {
-            val intent = Intent(this, ViewAdminAccounts::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 

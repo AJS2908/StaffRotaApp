@@ -18,7 +18,7 @@ class ViewAdminAccounts : AppCompatActivity() {
 
         val AddAdAccounsBut: Button = findViewById(R.id.addNewAdAccountBut)
         AddAdAccounsBut.setOnClickListener {
-            val intent = Intent(this, OwnerHome::class.java)
+            val intent = Intent(this, AddNewAdmin::class.java)
             startActivity(intent)
         }
 
