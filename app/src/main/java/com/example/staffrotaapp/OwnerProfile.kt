@@ -40,6 +40,8 @@ class OwnerProfile : AppCompatActivity() {
         }
 
         EditOwnerProfcanBut.setOnClickListener{
+            val intent = Intent(this, OwnerHome::class.java)
+            startActivity(intent)
             EditOwnerUsername.visibility = View.INVISIBLE
             EditOwnerPassword.visibility = View.INVISIBLE
             EditOwnerConPassword.visibility = View.INVISIBLE
@@ -47,11 +49,11 @@ class OwnerProfile : AppCompatActivity() {
             EditOwnerProfconBut.visibility = View.INVISIBLE
             ShownOwnerPassword.visibility = View.VISIBLE
             ShownOwnerUsername.visibility = View.VISIBLE
-            val intent = Intent(this, OwnerHome::class.java)
-            startActivity(intent)
         }
 
         EditOwnerProfconBut.setOnClickListener{
+            val intent = Intent(this, OwnerHome::class.java)
+            startActivity(intent)
             EditOwnerUsername.visibility = View.INVISIBLE
             EditOwnerPassword.visibility = View.INVISIBLE
             EditOwnerConPassword.visibility = View.INVISIBLE
@@ -59,8 +61,6 @@ class OwnerProfile : AppCompatActivity() {
             EditOwnerProfconBut.visibility = View.INVISIBLE
             ShownOwnerPassword.visibility = View.VISIBLE
             ShownOwnerUsername.visibility = View.VISIBLE
-            val intent = Intent(this, OwnerHome::class.java)
-            startActivity(intent)
         }
 
 
