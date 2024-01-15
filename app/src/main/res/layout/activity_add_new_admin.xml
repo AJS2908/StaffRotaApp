@@ -8,4 +8,78 @@
     android:backgroundTint="#91BDBD"
     tools:context=".AddNewAdmin">
 
+    <EditText
+        android:id="@+id/adminNINumber"
+        android:layout_width="295dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="380dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="NI Number"
+        android:inputType="text"
+        android:textColor="#595656"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/crtAdmProfileRetBut"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+        android:text="Create Admin Profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/username3"
+        android:layout_width="295dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="100dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="text"
+        android:textColor="#595656"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/confirm"
+        android:layout_width="295dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="288dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="text"
+        android:password="true"
+        android:textColor="#595656"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/password3"
+        android:layout_width="295dp"
+        android:layout_height="81dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="192dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="text"
+        android:password="true"
+        android:textColor="#595656"
+        android:textSize="48sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

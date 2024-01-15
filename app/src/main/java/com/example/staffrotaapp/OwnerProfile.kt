@@ -5,14 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class AddNewAdmin : AppCompatActivity() {
+class OwnerProfile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_new_admin)
-
-        val OwnerLoginbut: Button = findViewById(R.id.crtAdmProfileRetBut)
-        OwnerLoginbut.setOnClickListener {
-            val intent = Intent(this, ViewAdminAccounts::class.java)
+        setContentView(R.layout.activity_owner_profile)
+        val ViewOwnerProfRetBut: Button = findViewById(R.id.viewOwnerProfileReturn)
+        ViewOwnerProfRetBut.setOnClickListener {
+            val intent = Intent(this, OwnerHome::class.java)
             startActivity(intent)
         }
     }
