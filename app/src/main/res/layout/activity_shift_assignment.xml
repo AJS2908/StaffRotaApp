@@ -6,18 +6,20 @@
     android:layout_height="match_parent"
     android:background="#91BDBD"
     android:backgroundTint="#91BDBD"
-    tools:context=".CreateShift">
+    tools:context=".shiftAssignment">
 
     <Button
-        android:id="@+id/Createshifthomebut"
+        android:id="@+id/shiftRetBut"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
-        android:layout_height="76dp"
-        android:text="Create shift"
+        android:layout_height="50dp"
+        android:text="Shift Assigner"
+        app:icon="@drawable/pngtreegray_triangle_back_button_element_4647098"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

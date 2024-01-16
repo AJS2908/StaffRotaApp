@@ -9,6 +9,19 @@
     tools:context=".AdminHome">
 
     <Button
+        android:id="@+id/shiftassignbut"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="177dp"
+        android:layout_height="71dp"
+        android:text="Assign shifts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.072"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.709" />
+
+    <Button
         android:id="@+id/AdmLogOutBut"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="177dp"
@@ -55,19 +68,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.931"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.709" />
-
-    <Button
-        android:id="@+id/ShiftAssign"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="177dp"
-        android:layout_height="71dp"
-        android:text="Shift assigner"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.072"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.709" />
