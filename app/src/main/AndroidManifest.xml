@@ -13,6 +13,9 @@
         android:theme="@style/Theme.StaffRotaApp"
         tools:targetApi="31">
         <activity
+            android:name=".Feedback"
+            android:exported="false" />
+        <activity
             android:name=".shiftAssignment"
             android:exported="false" />
         <activity

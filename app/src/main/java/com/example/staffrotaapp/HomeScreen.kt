@@ -16,6 +16,19 @@ class HomeScreen : AppCompatActivity() {
             val intent = Intent(this, Timetable::class.java)
             startActivity(intent)
         }
+
+
+        val Holidaybutton: Button = findViewById(R.id.holidayBut)
+        Holidaybutton.setOnClickListener {
+            val intent = Intent(this, Timetable::class.java)
+            startActivity(intent)
+        }
+
+        val Feebackbutton: Button = findViewById(R.id.feedbackBut)
+        Feebackbutton.setOnClickListener {
+            val intent = Intent(this, Feedback::class.java)
+            startActivity(intent)
+        }
     }
 
     fun ButtonlogOut (View: View){
