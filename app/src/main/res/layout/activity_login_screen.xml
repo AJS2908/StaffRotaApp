@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#91BDBD"
-    android:backgroundTint="#91BDBD"
+    android:background="#4D75AC"
     tools:context=".LoginScreen">
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="412dp"
-        android:layout_height="89dp"
+        android:layout_width="0dp"
+        android:layout_height="107dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/time_smith_logo" />
+        app:srcCompat="@drawable/time_smiths_t1__1__removebg_preview" />
 
     <TextView
         android:id="@+id/textView"
@@ -48,17 +47,17 @@
 
     <Button
         android:id="@+id/LoginSubmit"
-        android:layout_width="165dp"
-        android:layout_height="59dp"
-        android:background="#000000"
-        android:backgroundTint="#000000"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="266dp"
+        android:layout_height="65dp"
+        android:background="#B8BEBF"
         android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toEndOf="@+id/LoginCancel"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.87" />
+        app:layout_constraintVertical_bias="0.696" />
 
     <EditText
         android:id="@+id/Password"
@@ -97,17 +96,19 @@
 
     <Button
         android:id="@+id/LoginCancel"
-        android:layout_width="155dp"
-        android:layout_height="57dp"
-        android:background="#000000"
-        android:backgroundTint="#000000"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="266dp"
+        android:layout_height="65dp"
+        android:background="#B8BEBF"
+        android:backgroundTint="#B8BEBF"
         android:text="Cancel"
+        android:textColorHighlight="#B8BEBF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.867" />
+        app:layout_constraintVertical_bias="0.824" />
 
     <Button
         android:id="@+id/GotoAdmin"
@@ -116,8 +117,9 @@
         android:text="Admin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.953" />
+        app:layout_constraintVertical_bias="0.942" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

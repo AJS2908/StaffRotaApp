@@ -20,7 +20,7 @@ class HomeScreen : AppCompatActivity() {
 
         val Holidaybutton: Button = findViewById(R.id.holidayBut)
         Holidaybutton.setOnClickListener {
-            val intent = Intent(this, Timetable::class.java)
+            val intent = Intent(this, Holiday::class.java)
             startActivity(intent)
         }
 

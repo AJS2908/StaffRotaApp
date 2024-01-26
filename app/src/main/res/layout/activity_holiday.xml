@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#91BDBD"
-    android:backgroundTint="#91BDBD"
+    android:background="#446899"
     tools:context=".Holiday">
 
     <ListView
         android:id="@+id/yourHolidayList"
         android:layout_width="wrap_content"
         android:layout_height="447dp"
+        android:background="#E4E4E4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -75,6 +75,7 @@
         android:id="@+id/yourRequestsList"
         android:layout_width="wrap_content"
         android:layout_height="447dp"
+        android:background="#E4E4E4"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

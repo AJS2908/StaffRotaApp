@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#78A2AC"
+    android:background="#446899"
     tools:context=".Timetable">
 
     <Button

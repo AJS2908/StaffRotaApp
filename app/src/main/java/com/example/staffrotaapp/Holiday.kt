@@ -1,5 +1,6 @@
 package com.example.staffrotaapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -12,6 +13,11 @@ class Holiday : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_holiday)
 
+        val Holidayretbutton: Button = findViewById(R.id.holidayRetBut)
+        Holidayretbutton.setOnClickListener {
+            val intent = Intent(this, HomeScreen::class.java)
+            startActivity(intent)
+        }
 
         val changetoBooked: Button = findViewById(R.id.yourHoliday)
         val changetorequests: Button = findViewById(R.id.currentRequests)
