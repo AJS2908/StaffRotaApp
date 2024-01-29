@@ -15,5 +15,10 @@ class ViewAccounts : AppCompatActivity() {
             val intent = Intent(this, AdminHome::class.java)
             startActivity(intent)
         }
+        val createAccount: Button = findViewById(R.id.createAccount)
+        createAccount.setOnClickListener {
+            val intent = Intent(this, CreateNewAccount::class.java)
+            startActivity(intent)
+        }
     }
 }
