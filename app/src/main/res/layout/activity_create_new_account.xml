@@ -24,7 +24,7 @@
         app:layout_constraintVertical_bias="0.089" />
 
     <EditText
-        android:id="@+id/username2"
+        android:id="@+id/username"
         android:layout_width="295dp"
         android:layout_height="81dp"
         android:background="@color/white"
@@ -56,7 +56,7 @@
         app:layout_constraintVertical_bias="0.687" />
 
     <EditText
-        android:id="@+id/password2"
+        android:id="@+id/password"
         android:layout_width="295dp"
         android:layout_height="81dp"
         android:background="@color/white"
@@ -103,7 +103,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/createButton"
         android:layout_width="170dp"
         android:layout_height="75dp"
         android:text="create"

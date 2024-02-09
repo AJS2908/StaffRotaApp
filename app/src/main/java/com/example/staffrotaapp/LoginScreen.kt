@@ -1,21 +1,26 @@
 package com.example.staffrotaapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
-private lateinit var username: EditText
-private lateinit var password: EditText
-private lateinit var LoginButton: Button
 class LoginScreen : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
+    private lateinit var username: EditText
+    private lateinit var password: EditText
+    private lateinit var loginButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
+
+        auth = FirebaseAuth.getInstance()
 
         val gotoAdminlogin: Button = findViewById(R.id.GotoAdmin)
         gotoAdminlogin.setOnClickListener {
@@ -28,27 +33,36 @@ class LoginScreen : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
         username = findViewById(R.id.Username)
         password = findViewById(R.id.Password)
-        LoginButton = findViewById(R.id.LoginSubmit)
+        loginButton = findViewById(R.id.LoginSubmit)
 
-        LoginButton.setOnClickListener {
-            val Username = username.text.toString()
-            val Password = password.text.toString()
-            if (TextUtils.isEmpty(Username)) {
-                Toast.makeText(this, "please enter Username", Toast.LENGTH_SHORT).show()
+        loginButton.setOnClickListener {
+            val user = username.text.toString()
+            val pass = password.text.toString()
+
+            if (TextUtils.isEmpty(user)) {
+                Toast.makeText(this, "Please enter Username", Toast.LENGTH_SHORT).show()
+            } else if (TextUtils.isEmpty(pass)) {
+                Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show()
             } else {
-                if (TextUtils.isEmpty(Password)) {
-                    Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, HomeScreen::class.java)
-                    startActivity(intent)
-                }
+                loginUser(user, pass)
             }
-
         }
-
     }
 
+    private fun loginUser(username: String, password: String) {
+        auth.signInWithEmailAndPassword("$username", password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, HomeScreen::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Toast.makeText(this, "Login Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
 }
