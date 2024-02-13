@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "198154224590",
+    "project_id": "staffrota-bdc87",
+    "storage_bucket": "staffrota-bdc87.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198154224590:android:7c737412112caaa1c7a19f",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAqr2kHNgXLcAifFxmaHkzWHVtU5C_Ak0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
