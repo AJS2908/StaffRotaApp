@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:198154224590:android:7c737412112caaa1c7a19f",
         "android_client_info": {
-          "package_name": "com.android.application"
+          "package_name": "com.example.staffrotaapp"
         }
       },
       "oauth_client": [],
