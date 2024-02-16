@@ -39,18 +39,28 @@ class CreateNewAccount : AppCompatActivity() {
             val pass = password.text.toString()
 
             // Validate input fields
+            var hasError = false
             if (user.isEmpty()) {
-                username.setError("Username cannot be empty")
-            } else if (pass.isEmpty()) {
-                password.setError("Password cannot be empty")
-            } else {
+                username.error = "Username cannot be empty"
+                hasError = true
+            }
+            if (pass.isEmpty()) {
+                password.error = "Password cannot be empty"
+                hasError = true
+            }
+
+            if (!hasError) {
                 // Call function to create new account
                 createNewAccount(user, pass)
             }
         }
     }
 
-    // Function to create a new account with Firebase Authentication
+    /**
+     * Function to create a new account with Firebase Authentication.
+     * @param username The username entered by the user.
+     * @param password The password entered by the user.
+     */
     private fun createNewAccount(username: String, password: String) {
         auth.createUserWithEmailAndPassword("$username", password)
             .addOnCompleteListener(this) { task ->
