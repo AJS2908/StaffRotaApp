@@ -1,17 +1,21 @@
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginHelper {
 
+    private val TAG = "LoginHelper"
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun loginUser(username: String, password: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
         // You can use the username as the email for authentication
-        auth.signInWithEmailAndPassword("$username", password)
+        auth.signInWithEmailAndPassword(username, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     onSuccess()
                 } else {
-                    onFailure(task.exception?.message ?: "Unknown error occurred")
+                    val errorMessage = task.exception?.message ?: "Unknown error occurred"
+                    Log.e(TAG, "Login failed: $errorMessage")
+                    onFailure(errorMessage)
                 }
             }
     }

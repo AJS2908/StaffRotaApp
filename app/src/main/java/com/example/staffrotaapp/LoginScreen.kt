@@ -20,7 +20,7 @@ class LoginScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_screen)
 
-        auth = FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance() // Initialize FirebaseAuth
 
         val gotoAdminlogin: Button = findViewById(R.id.GotoAdmin)
         gotoAdminlogin.setOnClickListener {
@@ -53,7 +53,7 @@ class LoginScreen : AppCompatActivity() {
     }
 
     private fun loginUser(username: String, password: String) {
-        auth.signInWithEmailAndPassword("$username", password)
+        auth.signInWithEmailAndPassword(username, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()

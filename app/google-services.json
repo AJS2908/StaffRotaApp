@@ -1,13 +1,14 @@
 {
   "project_info": {
-    "project_number": "198154224590",
-    "project_id": "staffrota-bdc87",
-    "storage_bucket": "staffrota-bdc87.appspot.com"
+    "project_number": "519602437820",
+    "firebase_url": "https://loginsystemapp-9f138-default-rtdb.firebaseio.com",
+    "project_id": "loginsystemapp-9f138",
+    "storage_bucket": "loginsystemapp-9f138.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:198154224590:android:7c737412112caaa1c7a19f",
+        "mobilesdk_app_id": "1:519602437820:android:fa42d86bfc2f593347dab9",
         "android_client_info": {
           "package_name": "com.example.staffrotaapp"
         }
@@ -15,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBAqr2kHNgXLcAifFxmaHkzWHVtU5C_Ak0"
+          "current_key": "AIzaSyCy614INKVw8IARAtQgQfTP57C1AUJLL50"
         }
       ],
       "services": {
