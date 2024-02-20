@@ -30,7 +30,7 @@ class LoginScreen : AppCompatActivity() {
 
         val gotoPasswordReset: Button = findViewById(R.id.FPassword)
         gotoPasswordReset.setOnClickListener {
-            val intent = Intent(this, AdminLogin::class.java)
+            val intent = Intent(this, PasswordReset::class.java)
             startActivity(intent)
         }
 
