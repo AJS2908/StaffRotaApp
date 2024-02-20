@@ -28,6 +28,12 @@ class LoginScreen : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val gotoPasswordReset: Button = findViewById(R.id.FPassword)
+        gotoPasswordReset.setOnClickListener {
+            val intent = Intent(this, AdminLogin::class.java)
+            startActivity(intent)
+        }
+
         val cancellogin: Button = findViewById(R.id.LoginCancel)
         cancellogin.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -36,7 +42,7 @@ class LoginScreen : AppCompatActivity() {
 
         username = findViewById(R.id.Username)
         password = findViewById(R.id.Password)
-        loginButton = findViewById(R.id.LoginSubmit)
+        loginButton = findViewById(R.id.Send)
 
         loginButton.setOnClickListener {
             val user = username.text.toString()
