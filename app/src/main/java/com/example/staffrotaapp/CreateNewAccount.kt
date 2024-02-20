@@ -18,6 +18,7 @@ class CreateNewAccount : AppCompatActivity() {
 
     // Views
     private lateinit var username: EditText
+    private lateinit var confirm: EditText
     private lateinit var password: EditText
     private lateinit var createButton: Button
 
@@ -31,12 +32,14 @@ class CreateNewAccount : AppCompatActivity() {
         // Initialize views
         username = findViewById(R.id.username)
         password = findViewById(R.id.password)
+        confirm = findViewById(R.id.confirm)
         createButton = findViewById(R.id.createButton)
 
         // Set click listener for createButton
         createButton.setOnClickListener {
             val user = username.text.toString()
             val pass = password.text.toString()
+            val confirmPass = confirm.text.toString()
 
             // Validate input fields
             var hasError = false
@@ -46,6 +49,10 @@ class CreateNewAccount : AppCompatActivity() {
             }
             if (pass.isEmpty()) {
                 password.error = "Password cannot be empty"
+                hasError = true
+            }
+            if (confirmPass != pass) {
+                confirm.error = "Passwords do not match"
                 hasError = true
             }
 

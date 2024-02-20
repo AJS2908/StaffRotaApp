@@ -57,7 +57,7 @@
         android:layout_height="81dp"
         android:background="@color/white"
         android:ems="10"
-        android:hint="Username"
+        android:hint="Email"
         android:inputType="text"
         android:textColor="#595656"
         android:textSize="48sp"

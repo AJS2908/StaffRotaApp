@@ -8,28 +8,12 @@
     tools:context=".CreateNewAccount">
 
     <EditText
-        android:id="@+id/EmployeeID"
-        android:layout_width="295dp"
-        android:layout_height="81dp"
-        android:background="@color/white"
-        android:ems="10"
-        android:hint="employeeID"
-        android:inputType="text"
-        android:textColor="#595656"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.089" />
-
-    <EditText
         android:id="@+id/username"
         android:layout_width="295dp"
         android:layout_height="81dp"
         android:background="@color/white"
         android:ems="10"
-        android:hint="Username"
+        android:hint="Email"
         android:inputType="text"
         android:textColor="#595656"
         android:textSize="48sp"
@@ -37,23 +21,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.235" />
+        app:layout_constraintVertical_bias="0.123" />
 
     <EditText
-        android:id="@+id/adminNINumber2"
+        android:id="@+id/confirm"
         android:layout_width="295dp"
         android:layout_height="81dp"
         android:background="@color/white"
         android:ems="10"
-        android:hint="NI Number"
+        android:hint="Confirm Password"
         android:inputType="text"
+        android:password="true"
         android:textColor="#595656"
-        android:textSize="48sp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.687" />
+        app:layout_constraintVertical_bias="0.43" />
 
     <EditText
         android:id="@+id/password"
@@ -70,24 +55,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.381" />
+        app:layout_constraintVertical_bias="0.269" />
 
     <EditText
-        android:id="@+id/confirm2"
+        android:id="@+id/adminNINumber2"
         android:layout_width="295dp"
         android:layout_height="81dp"
         android:background="@color/white"
         android:ems="10"
-        android:hint="Confirm Password"
+        android:hint="NI Number"
         android:inputType="text"
-        android:password="true"
         android:textColor="#595656"
-        android:textSize="30sp"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.543" />
+        app:layout_constraintVertical_bias="0.575" />
 
     <Button
         android:id="@+id/createAccountsReturn"
