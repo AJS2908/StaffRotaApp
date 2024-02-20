@@ -28,7 +28,7 @@ class PasswordReset : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         // Initialize views
-        emailEditText = findViewById(R.id.EmailAddress)
+        emailEditText = findViewById(R.id.Email)
         resetButton = findViewById(R.id.Send)
         resetPasswordBack = findViewById(R.id.ResetBack)
 
