@@ -1,3 +1,4 @@
+
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 
@@ -36,4 +37,6 @@ class LoginHelper {
     fun isUserLoggedIn(): Boolean {
         return auth.currentUser != null
     }
+
+
 }

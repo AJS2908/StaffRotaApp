@@ -49,13 +49,12 @@
         app:layout_constraintVertical_bias="0.533" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/PhoneNumber"
         android:layout_width="295dp"
         android:layout_height="81dp"
         android:background="@color/white"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="text"
+        android:hint="Phone Number"
+        android:inputType="number"
         android:textColor="#595656"
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
