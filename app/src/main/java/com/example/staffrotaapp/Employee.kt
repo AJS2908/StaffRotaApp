@@ -1,18 +1,21 @@
 package com.example.staffrotaapp
 
 class Employee {
-    var firstName: String? = null
-    var lastName: String? = null
-    var nINumber: String? = null
-    var email: String? = null
+    private var firstName: String? = null
+    private var lastName: String? = null
+    private var nINumber: String? = null
+    private var password: String? = null
 
-    constructor() {}
-
-    constructor(firstName: String?, lastName: String?, nINumber: String?, email: String?) {
+    constructor(
+        firstName: String?,
+        lastName: String?,
+        nINumber: String?,
+        password: String?
+    ) {
         this.firstName = firstName
         this.lastName = lastName
         this.nINumber = nINumber
-        this.email = email
+        this.password = password
     }
 
     fun getFirstName(): String? {
@@ -35,15 +38,16 @@ class Employee {
         return nINumber
     }
 
-    fun setNINumber(age: String?) {
+    fun setNINumber(nINumber: String?) {
         this.nINumber = nINumber
     }
 
-    fun getUserName(): String? {
-        return email
+
+    fun getPassword(): String? {
+        return password
     }
 
-    fun setUserName(userName: String?) {
-        this.email = email
+    fun setPassword(password: String?) {
+        this.password = password
     }
 }
