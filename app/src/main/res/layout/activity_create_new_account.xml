@@ -8,9 +8,43 @@
     tools:context=".CreateNewAccount">
 
     <EditText
+        android:id="@+id/lName"
+        android:layout_width="381dp"
+        android:layout_height="85dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Surname"
+        android:inputType="text"
+        android:textColor="#595656"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.393" />
+
+    <EditText
+        android:id="@+id/fName"
+        android:layout_width="381dp"
+        android:layout_height="85dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="First Name"
+        android:inputType="text"
+        android:textColor="#595656"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.247" />
+
+    <EditText
         android:id="@+id/username"
-        android:layout_width="295dp"
-        android:layout_height="81dp"
+        android:layout_width="381dp"
+        android:layout_height="85dp"
         android:background="@color/white"
         android:ems="10"
         android:hint="Email"
@@ -19,30 +53,14 @@
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.123" />
-
-    <EditText
-        android:id="@+id/confirm"
-        android:layout_width="295dp"
-        android:layout_height="81dp"
-        android:background="@color/white"
-        android:ems="10"
-        android:hint="Confirm Password"
-        android:inputType="text"
-        android:password="true"
-        android:textColor="#595656"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintVertical_bias="0.102" />
 
     <EditText
         android:id="@+id/password"
-        android:layout_width="295dp"
+        android:layout_width="381dp"
         android:layout_height="81dp"
         android:background="@color/white"
         android:ems="10"
@@ -55,11 +73,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.269" />
+        app:layout_constraintVertical_bias="0.533" />
 
     <EditText
-        android:id="@+id/adminNINumber2"
-        android:layout_width="295dp"
+        android:id="@+id/confirm"
+        android:layout_width="381dp"
+        android:layout_height="81dp"
+        android:background="@color/white"
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="text"
+        android:password="true"
+        android:textColor="#595656"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.678" />
+
+    <EditText
+        android:id="@+id/NINumber2"
+        android:layout_width="381dp"
         android:layout_height="81dp"
         android:background="@color/white"
         android:ems="10"
@@ -71,7 +106,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.575" />
+        app:layout_constraintVertical_bias="0.823" />
 
     <Button
         android:id="@+id/createAccountsReturn"
@@ -96,5 +131,5 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.894" />
+        app:layout_constraintVertical_bias="0.955" />
 </androidx.constraintlayout.widget.ConstraintLayout>
