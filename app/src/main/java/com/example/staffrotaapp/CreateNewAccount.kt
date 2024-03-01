@@ -98,8 +98,7 @@ class CreateNewAccount : AppCompatActivity() {
             }
 
             if (!hasError) {
-                // Call function to create new account
-                createNewAccount(user, emailInput, pass, fName, lName, nINum)
+                generateEmployeeId()
             }
         }
     }
@@ -112,20 +111,42 @@ class CreateNewAccount : AppCompatActivity() {
      * @param firstName The first name entered by the user.
      * @param lastName The last name entered by the user.
      * @param nINumber The National Insurance number entered by the user.
+     * @param employeeId The employee ID generated for the new account.
      */
-    private fun createNewAccount(username: String, email: String, password: String, firstName: String, lastName: String, nINumber: String) {
+    private fun createNewAccount(
+        username: String,
+        email: String,
+        password: String,
+        firstName: String,
+        lastName: String,
+        nINumber: String,
+        employeeId: Int
+    ) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val currentUser = FirebaseAuth.getInstance().currentUser
-                    currentUser?.let { user ->
-                        val employeeId = generateEmployeeId()
-                        val employee = Employee(employeeId, firstName, lastName, username, email, nINumber, password)
-                        reference.child(employeeId.toString()).setValue(employee)
-                        // Navigate to desired activity
-                        startActivity(Intent(this, ViewAccounts::class.java))
-                        finish()
-                    }
+                    val employee = Employee(
+                        employeeId,
+                        username,
+                        firstName,
+                        lastName,
+                        email,
+                        password,
+                        nINumber
+                    )
+                    reference.child(employeeId.toString())
+                        .setValue(employee)
+                        .addOnSuccessListener {
+                            startActivity(Intent(this, ViewAccounts::class.java))
+                            finish()
+                        }
+                        .addOnFailureListener { exception ->
+                            Toast.makeText(
+                                this,
+                                "Failed to create account: ${exception.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                 } else {
                     // Account creation failed, display error message
                     val errorMessage = when (task.exception) {
@@ -140,11 +161,10 @@ class CreateNewAccount : AppCompatActivity() {
     }
 
     // Function to generate a unique employee ID
-    private fun generateEmployeeId(): Int {
-        var maxId = 0
-        // Query the database to find the highest employee id
-        reference.addListenerForSingleValueEvent(object : ValueEventListener {
+    private fun generateEmployeeId() {
+        reference.orderByChild("employeeId").limitToLast(1).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                var maxId = 0
                 for (employeeSnapshot in snapshot.children) {
                     val employee = employeeSnapshot.getValue(Employee::class.java)
                     val employeeId = employee?.employeeId ?: 0
@@ -154,9 +174,10 @@ class CreateNewAccount : AppCompatActivity() {
                 }
                 // Once the maximum id is found, increment it by 1
                 val newId = maxId + 1
-                // Now you can use this newId for the next employee
-                // For now, let's just print it
-                println("New Employee ID: $newId")
+                createNewAccount(
+                    username.text.toString(), email.text.toString(), password.text.toString(),
+                    firstName.text.toString(), lastName.text.toString(), nINumber.text.toString(), newId
+                )
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -164,7 +185,5 @@ class CreateNewAccount : AppCompatActivity() {
                 println("Error: ${error.message}")
             }
         })
-        // Return a default value, as the actual value will be retrieved asynchronously
-        return 0
     }
 }

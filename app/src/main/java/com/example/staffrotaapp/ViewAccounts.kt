@@ -7,12 +7,20 @@ import android.widget.Button
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ViewAccounts : AppCompatActivity() {
 
     // Firebase authentication instance
     private lateinit var auth: FirebaseAuth
+
+    // Firebase Database instance
+    private lateinit var database: FirebaseDatabase
+    private lateinit var reference: DatabaseReference
 
     // ListView to display accounts
     private lateinit var accountListView: ListView
@@ -26,6 +34,10 @@ class ViewAccounts : AppCompatActivity() {
 
         // Initialize Firebase authentication
         auth = FirebaseAuth.getInstance()
+
+        // Initialize Firebase Database
+        database = FirebaseDatabase.getInstance()
+        reference = database.getReference("Employees")
 
         // Initialize ListView
         accountListView = findViewById(R.id.ViewAccountView)
@@ -47,20 +59,29 @@ class ViewAccounts : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // Fetch and display accounts from Firebase Authentication
+        // Fetch and display accounts from Firebase Realtime Database
         fetchAccounts()
     }
 
-    // Function to fetch accounts from Firebase Authentication
+    // Function to fetch accounts from Firebase Realtime Database
     private fun fetchAccounts() {
-        val currentUser: FirebaseUser? = auth.currentUser
-        if (currentUser != null) {
-            val userEmail: String? = currentUser.email
-            if (userEmail != null) {
-                accountAdapter.add(userEmail)
+        reference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (employeeSnapshot in snapshot.children) {
+                    val employee = employeeSnapshot.getValue(Employee::class.java)
+                    if (employee != null) {
+                        val accountInfo = "${employee.employeeId}: ${employee.firstName} ${employee.lastName}, ${employee.email}"
+                        accountAdapter.add(accountInfo)
+                    }
+                }
                 accountAdapter.notifyDataSetChanged()
             }
-        }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle database error
+                println("Error: ${error.message}")
+            }
+        })
     }
 }
 
