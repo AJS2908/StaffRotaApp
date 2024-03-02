@@ -1,157 +1,104 @@
 package com.example.staffrotaapp
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-
-private lateinit var username: EditText
-private lateinit var password: EditText
-private lateinit var LoginButton: Button
-
-class AdminLogin : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_login)
-
-        val returnbutton: Button = findViewById(R.id.returnbut)
-        returnbutton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-        val adminloginbut: Button = findViewById(R.id.adminloginbut)
-        adminloginbut.setOnClickListener {
-            val intent = Intent(this, AdminHome::class.java)
-            startActivity(intent)
-        }
-        val gotoownerlogin: Button = findViewById(R.id.gotoownerlogin)
-        gotoownerlogin.setOnClickListener {
-            val intent = Intent(this, Owner_Login::class.java)
-            startActivity(intent)
-        }
-
-        username = findViewById(R.id.PhoneNumber)
-        password = findViewById(R.id.password)
-        LoginButton = findViewById(R.id.adminloginbut)
-
-        LoginButton.setOnClickListener {
-            val Username = username.text.toString()
-            val Password = password.text.toString()
-            if (TextUtils.isEmpty(Username)) {
-                Toast.makeText(this, "please enter Username", Toast.LENGTH_SHORT).show()
-            } else {
-                if (TextUtils.isEmpty(Password)) {
-                    Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, AdminHome::class.java)
-                    startActivity(intent)
-                }
-            }
-
-        }
-    }
-}
-
-/*
-package com.example.staffrotaapp
-
-import android.content.Intent
-import android.os.Bundle
-import android.text.TextUtils
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.FirebaseException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthProvider
-import java.util.concurrent.TimeUnit
-
-private lateinit var phoneNumber: EditText
-private lateinit var loginButton: Button
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class AdminLogin : AppCompatActivity() {
 
-    // Firebase Authentication instance
-    private lateinit var auth: FirebaseAuth
+    // Firebase Database instance
+    private lateinit var database: FirebaseDatabase
+    private lateinit var reference: DatabaseReference
+
+    // Views
+    private lateinit var usernameEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var loginButton: Button
+
+    // Shared Preferences
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_login)
 
-        // Initialize Firebase Authentication
-        auth = FirebaseAuth.getInstance()
+        // Initialize Firebase Database
+        database = FirebaseDatabase.getInstance()
+        reference = database.getReference("Admins") // Reference the "Admins" node
 
-        val returnButton: Button = findViewById(R.id.returnbut)
-        returnButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+        // Initialize Shared Preferences
+        sharedPreferences = getSharedPreferences("AdminPrefs", Context.MODE_PRIVATE)
 
-        val goToOwnerLogin: Button = findViewById(R.id.gotoownerlogin)
-        goToOwnerLogin.setOnClickListener {
-            val intent = Intent(this, Owner_Login::class.java)
-            startActivity(intent)
-        }
+        // Initialize views
+        usernameEditText = findViewById(R.id.username)
+        passwordEditText = findViewById(R.id.password)
+        loginButton = findViewById(R.id.adminLoginBut)
 
-        phoneNumber = findViewById(R.id.PhoneNumber)
-        loginButton = findViewById(R.id.adminloginbut)
-
+        // Set click listener for loginButton
         loginButton.setOnClickListener {
-            val userPhoneNumber = phoneNumber.text.toString()
+            val username = usernameEditText.text.toString()
+            val password = passwordEditText.text.toString()
 
-            if (TextUtils.isEmpty(userPhoneNumber)) {
-                Toast.makeText(this, "Please enter phone number", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            // Validate input fields
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show()
+            } else {
+                authenticateAdmin(username, password)
             }
-
-            // Request OTP to verify the phone number
-            val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                    signInWithPhoneAuthCredential(credential)
-                }
-
-                override fun onVerificationFailed(e: FirebaseException) {
-                    // Handle verification failure
-                    Toast.makeText(this@AdminLogin, "Verification failed: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+$userPhoneNumber", // Phone number in E.164 format
-                60,
-                TimeUnit.SECONDS,
-                this,
-                callbacks
-            )
         }
     }
 
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Login successful, navigate to AdminHome
-                    Toast.makeText(this, "Logged in successfully", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, AdminHome::class.java)
+    // Function to authenticate admin
+    private fun authenticateAdmin(username: String, password: String) {
+        reference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var isAdminAuthenticated = false
+                var adminId = ""
+                for (adminSnapshot in snapshot.children) {
+                    val admin = adminSnapshot.getValue(Admin::class.java)
+                    if (admin != null && admin.username == username && admin.password == password) {
+                        isAdminAuthenticated = true
+                        adminId = adminSnapshot.key ?: ""
+                        break
+                    }
+                }
+                if (isAdminAuthenticated) {
+                    // Save admin ID to SharedPreferences
+                    saveAdminId(adminId)
+                    // Authentication successful, proceed to next activity
+                    val intent = Intent(this@AdminLogin, AdminHome::class.java)
+                    // Pass admin ID to the next activity
+                    intent.putExtra("adminId", adminId)
                     startActivity(intent)
                     finish()
                 } else {
-                    // Login failed, display error message
-                    val errorMessage = when (task.exception) {
-                        is FirebaseAuthInvalidCredentialsException -> "Invalid verification code"
-                        is FirebaseAuthInvalidUserException -> "User not found"
-                        else -> "Login failed: ${task.exception?.message ?: "Unknown error occurred"}"
-                    }
-                    Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+                    // Authentication failed
+                    Toast.makeText(this@AdminLogin, "Invalid username or password", Toast.LENGTH_SHORT).show()
                 }
             }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle database error
+                Toast.makeText(this@AdminLogin, "Database error", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    // Function to save admin ID to SharedPreferences
+    private fun saveAdminId(adminId: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString("adminId", adminId)
+        editor.apply()
     }
 }
- */
+
