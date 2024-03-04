@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#91BDBD"
-    android:backgroundTint="#91BDBD"
+    android:background="#446899"
     tools:context=".AdminHome">
 
     <Button
@@ -13,6 +12,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="177dp"
         android:layout_height="71dp"
+        android:background="#B8BEBF"
         android:text="Assign shifts"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,6 +26,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="177dp"
         android:layout_height="71dp"
+        android:background="#B8BEBF"
         android:text="LogOut"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,6 +39,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="177dp"
         android:layout_height="71dp"
+        android:background="#B8BEBF"
         android:text="Your profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +53,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="177dp"
         android:layout_height="71dp"
+        android:background="#B8BEBF"
         android:text="Timetable"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +67,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="177dp"
         android:layout_height="71dp"
+        android:background="#B8BEBF"
         android:text="Account viewer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,13 +78,13 @@
 
     <ImageView
         android:id="@+id/imageView11"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.185"
-        app:srcCompat="@drawable/time_smith_logo" />
+        app:layout_constraintVertical_bias="0.055"
+        app:srcCompat="@drawable/time_smiths_t1__1__removebg_preview" />
 </androidx.constraintlayout.widget.ConstraintLayout>

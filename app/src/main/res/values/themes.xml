@@ -2,7 +2,10 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.StaffRotaApp" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Set window flags to remove the status bar -->
+
+        <!-- Set status bar color -->
+        <item name="android:statusBarColor">#B8BEBF</item> <!-- Adjust this color to match your layout background color -->
     </style>
 
     <style name="Theme.StaffRotaApp" parent="Base.Theme.StaffRotaApp" />

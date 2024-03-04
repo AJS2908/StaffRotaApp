@@ -29,6 +29,12 @@ class AddNewAdmin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_admin)
 
+        val returnbut: Button = findViewById(R.id.crtAdmProfileRetBut)
+        returnbut.setOnClickListener {
+            val intent = Intent(this, AdminTimetable::class.java)
+            startActivity(intent)
+        }
+
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Admins")
 

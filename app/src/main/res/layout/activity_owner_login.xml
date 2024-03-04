@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#91BDBD"
-    android:backgroundTint="#91BDBD"
+    android:background="#446899"
     tools:context=".Owner_Login">
 
     <EditText
@@ -30,6 +29,7 @@
         android:id="@+id/textView5"
         android:layout_width="218dp"
         android:layout_height="35dp"
+        android:background="#E1E1E1"
         android:text="Password:"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,6 +43,7 @@
         android:id="@+id/textView6"
         android:layout_width="231dp"
         android:layout_height="53dp"
+        android:background="#E1E1E1"
         android:text="Username:"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -73,6 +74,7 @@
         android:id="@+id/OwnerLogin"
         android:layout_width="296dp"
         android:layout_height="97dp"
+        android:background="#B8BEBF"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,6 +87,7 @@
         android:id="@+id/returnbutton"
         android:layout_width="210dp"
         android:layout_height="57dp"
+        android:background="#B8BEBF"
         android:text="Return"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

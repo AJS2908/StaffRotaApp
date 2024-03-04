@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#91BDBD"
+    android:background="#446899"
     tools:context=".ViewAdminAccounts">
 
     <Button
@@ -12,6 +12,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
         android:layout_height="76dp"
+        android:background="#B8BEBF"
         android:text="add new account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

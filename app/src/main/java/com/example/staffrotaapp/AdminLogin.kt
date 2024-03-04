@@ -32,6 +32,18 @@ class AdminLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_login)
 
+        val returnbut: Button = findViewById(R.id.returnbut)
+        returnbut.setOnClickListener {
+            val intent = Intent(this, AdminTimetable::class.java)
+            startActivity(intent)
+        }
+
+        val gotoOwner: Button = findViewById(R.id.gotoownerlogin)
+        gotoOwner.setOnClickListener {
+            val intent = Intent(this, Owner_Login::class.java)
+            startActivity(intent)
+        }
+
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Admins") // Reference the "Admins" node

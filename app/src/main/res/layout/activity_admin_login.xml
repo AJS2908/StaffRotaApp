@@ -4,26 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#91BDBD"
+    android:background="#446899"
     tools:context=".AdminLogin">
 
     <ImageView
         android:id="@+id/imageView10"
-        android:layout_width="412dp"
-        android:layout_height="89dp"
+        android:layout_width="0dp"
+        android:layout_height="133dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/time_smith_logo" />
+        app:srcCompat="@drawable/time_smiths_t1__1__removebg_preview" />
 
     <Button
         android:id="@+id/gotoownerlogin"
         android:layout_width="143dp"
         android:layout_height="57dp"
         android:text="owner login"
+        android:background="#B8BEBF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.783"
@@ -68,6 +69,7 @@
         android:layout_width="296dp"
         android:layout_height="97dp"
         android:text="Login"
+        android:background="#B8BEBF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -80,6 +82,7 @@
         android:layout_width="145dp"
         android:layout_height="58dp"
         android:text="Return"
+        android:background="#B8BEBF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.214"

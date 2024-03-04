@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#91BDBD"
+    android:background="#446899"
+
     tools:context=".ViewAccounts">
 
     <Button
@@ -12,6 +13,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
         android:layout_height="76dp"
+        android:background="#B8BEBF"
         android:text="View Admin Profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,6 +27,7 @@
         android:layout_width="253dp"
         android:layout_height="80dp"
         android:text="create new account"
+        android:background="#B8BEBF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +38,7 @@
         android:id="@+id/ViewAccountView"
         android:layout_width="0dp"
         android:layout_height="600dp"
-        android:background="#FFFFFF"
+        android:background="#E1E1E1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
