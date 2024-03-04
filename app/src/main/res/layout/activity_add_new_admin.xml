@@ -90,7 +90,7 @@
         android:layout_height="85dp"
         android:background="@color/white"
         android:ems="10"
-        android:hint="Surname"
+        android:hint="Last Name"
         android:inputType="text"
         android:textColor="#595656"
         android:textSize="48sp"

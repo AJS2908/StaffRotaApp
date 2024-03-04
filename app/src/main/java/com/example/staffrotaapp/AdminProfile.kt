@@ -1,7 +1,9 @@
 package com.example.staffrotaapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
@@ -43,6 +45,14 @@ class AdminProfile : AppCompatActivity() {
         // Fetch and display admin profile
         val adminId = intent.getStringExtra("adminId")
         adminId?.let { fetchAdminProfile(it) }
+
+        val AdProfile: Button = findViewById(R.id.AdmProfilehomebut)
+        AdProfile.setOnClickListener {
+            val intent = Intent(this, AdminHome::class.java).apply {
+                putExtra("adminId", adminId)
+            }
+            startActivity(intent)
+        }
     }
 
     private fun fetchAdminProfile(adminId: String) {

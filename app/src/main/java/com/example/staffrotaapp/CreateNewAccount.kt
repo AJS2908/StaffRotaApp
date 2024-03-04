@@ -42,6 +42,17 @@ class CreateNewAccount : AppCompatActivity() {
         // Initialize Firebase Authentication
         auth = FirebaseAuth.getInstance()
 
+        // Fetch admin id
+        val adminId = intent.getStringExtra("adminId")
+
+        val createAccountsRet: Button = findViewById(R.id.createAccountsReturn)
+        createAccountsRet.setOnClickListener {
+            val intent = Intent(this, AdminHome::class.java).apply {
+                putExtra("adminId", adminId)
+            }
+            startActivity(intent)
+        }
+
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Employees")

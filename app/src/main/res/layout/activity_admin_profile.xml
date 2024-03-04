@@ -82,7 +82,7 @@
         android:id="@+id/AdmProfilehomebut"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
-        android:layout_height="76dp"
+        android:layout_height="50dp"
         android:text="Your Profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
