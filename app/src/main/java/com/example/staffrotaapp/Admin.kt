@@ -7,5 +7,6 @@ data class Admin(
     var lastName: String = "",
     var email: String = "",
     var password: String = "",
-    var nINumber: String = ""
+    var nINumber: String = "",
+    var ownerAcc: Boolean = false
 )

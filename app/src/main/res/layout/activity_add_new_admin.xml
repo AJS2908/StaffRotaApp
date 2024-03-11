@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975" />
+        app:layout_constraintVertical_bias="0.998" />
 
     <Button
         android:id="@+id/crtAdmProfileRetBut"
@@ -36,6 +36,23 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
+        android:id="@+id/nINumber"
+        android:layout_width="381dp"
+        android:layout_height="81dp"
+        android:background="#E1E1E1"
+        android:ems="10"
+        android:hint="NI Number"
+        android:inputType="text"
+        android:textColor="#595656"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.821" />
+
+    <EditText
         android:id="@+id/email"
         android:layout_width="381dp"
         android:layout_height="85dp"
@@ -50,7 +67,7 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.201" />
+        app:layout_constraintVertical_bias="0.182" />
 
     <EditText
         android:id="@+id/username"
@@ -67,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.051" />
 
     <EditText
         android:id="@+id/fName"
@@ -84,13 +101,14 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.331" />
+        app:layout_constraintVertical_bias="0.312" />
 
     <EditText
         android:id="@+id/lName"
         android:layout_width="381dp"
         android:layout_height="85dp"
-        android:background="#E1E1E1"        android:ems="10"
+        android:background="#E1E1E1"
+        android:ems="10"
         android:hint="Last Name"
         android:inputType="text"
         android:textColor="#595656"
@@ -100,7 +118,7 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.462" />
+        app:layout_constraintVertical_bias="0.444" />
 
     <EditText
         android:id="@+id/confirm"
@@ -118,29 +136,14 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.715" />
-
-    <EditText
-        android:id="@+id/nINumber"
-        android:layout_width="381dp"
-        android:layout_height="81dp"
-        android:background="#E1E1E1"        android:ems="10"
-        android:hint="NI Number"
-        android:inputType="text"
-        android:textColor="#595656"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84" />
+        app:layout_constraintVertical_bias="0.696" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="381dp"
         android:layout_height="81dp"
-        android:background="#E1E1E1"        android:ems="10"
+        android:background="#E1E1E1"
+        android:ems="10"
         android:hint="Password"
         android:inputType="text"
         android:password="true"
@@ -151,5 +154,18 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59" />
+        app:layout_constraintVertical_bias="0.572" />
+
+    <Switch
+        android:id="@+id/ownerAccSwitch"
+        android:layout_width="381dp"
+        android:layout_height="56dp"
+        android:background="#E1E1E1"
+        android:text="Owner Access"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.891" />
 </androidx.constraintlayout.widget.ConstraintLayout>

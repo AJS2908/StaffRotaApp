@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
@@ -24,6 +25,7 @@ class AddNewAdmin : AppCompatActivity() {
     private lateinit var nINumber: EditText
     private lateinit var confirm: EditText
     private lateinit var createButton: Button
+    private lateinit var ownerAccSwitch: Switch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,7 @@ class AddNewAdmin : AppCompatActivity() {
         nINumber = findViewById(R.id.nINumber)
         confirm = findViewById(R.id.confirm)
         createButton = findViewById(R.id.addNewAddAccount)
+        ownerAccSwitch = findViewById(R.id.ownerAccSwitch)
 
         createButton.setOnClickListener {
             val user = username.text.toString()
@@ -55,6 +58,7 @@ class AddNewAdmin : AppCompatActivity() {
             val lName = lastName.text.toString()
             val nINum = nINumber.text.toString()
             val confirmPass = confirm.text.toString()
+            val ownerAcc = ownerAccSwitch.isChecked  // Retrieve the state of the switch
 
             var hasError = false
             if (user.isEmpty()) {
@@ -87,7 +91,7 @@ class AddNewAdmin : AppCompatActivity() {
             }
 
             if (!hasError) {
-                generateAdminId()
+                generateAdminId(ownerAcc)  // Pass ownerAcc as a parameter
             }
         }
     }
@@ -99,6 +103,7 @@ class AddNewAdmin : AppCompatActivity() {
         email: String,
         password: String,
         nINumber: String,
+        ownerAcc: Boolean,  // Accept ownerAcc as a parameter
         adminId: Int
     ) {
         val admin = Admin(
@@ -108,7 +113,8 @@ class AddNewAdmin : AppCompatActivity() {
             password,
             firstName,
             lastName,
-            nINumber
+            nINumber,
+            ownerAcc  // Pass ownerAcc to the Admin constructor
         )
 
         reference.child(adminId.toString())
@@ -126,7 +132,7 @@ class AddNewAdmin : AppCompatActivity() {
             }
     }
 
-    private fun generateAdminId() {
+    private fun generateAdminId(ownerAcc: Boolean) {  // Accept ownerAcc as a parameter
         reference.orderByChild("adminId").limitToLast(1).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var maxId = 0
@@ -140,7 +146,9 @@ class AddNewAdmin : AppCompatActivity() {
                 val newId = maxId + 1
                 createNewAdmin(
                     username.text.toString(), email.text.toString(), password.text.toString(),
-                    firstName.text.toString(), lastName.text.toString(), nINumber.text.toString(), newId
+                    firstName.text.toString(), lastName.text.toString(), nINumber.text.toString(),
+                    ownerAcc,  // Pass ownerAcc to createNewAdmin
+                    newId
                 )
             }
 
