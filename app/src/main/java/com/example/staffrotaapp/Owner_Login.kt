@@ -1,17 +1,35 @@
 package com.example.staffrotaapp
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 private lateinit var username: EditText
 private lateinit var password: EditText
 private lateinit var LoginButton: Button
 class Owner_Login : AppCompatActivity() {
+
+    // Firebase Database instance
+    private lateinit var database: FirebaseDatabase
+    private lateinit var reference: DatabaseReference
+
+    // Views
+    private lateinit var usernameEditText: EditText
+    private lateinit var passwordEditText: EditText
+    private lateinit var loginButton: Button
+
+    // Shared Preferences
+    private lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_owner_login)
@@ -27,26 +45,70 @@ class Owner_Login : AppCompatActivity() {
             startActivity(intent)
         }
 
-        username = findViewById(R.id.username)
-        password = findViewById(R.id.password)
-        LoginButton = findViewById(R.id.OwnerLogin)
+        database = FirebaseDatabase.getInstance()
+        reference = database.getReference("Admins") // Reference the "Admins" node
 
-        LoginButton.setOnClickListener {
-            val Username = username.text.toString()
-            val Password = password.text.toString()
-            if (TextUtils.isEmpty(Username)) {
-                Toast.makeText(this, "please enter Username", Toast.LENGTH_SHORT).show()
+        // Initialize Shared Preferences
+        sharedPreferences = getSharedPreferences("AdminPrefs", Context.MODE_PRIVATE)
+
+        // Initialize views
+        usernameEditText = findViewById(R.id.username)
+        passwordEditText = findViewById(R.id.password)
+        loginButton = findViewById(R.id.OwnerLogin)
+
+        // Set click listener for loginButton
+        loginButton.setOnClickListener {
+            val username = usernameEditText.text.toString()
+            val password = passwordEditText.text.toString()
+
+            // Validate input fields
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show()
             } else {
-                if (TextUtils.isEmpty(Password)) {
-                    Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Logged in", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, OwnerHome::class.java)
+                authenticateOwner(username, password)
+            }
+        }
+    }
+
+    // Function to authenticate admin
+    private fun authenticateOwner(username: String, password: String) {
+        reference.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var isOwnerAuthenticated = false
+                var adminId = ""
+                for (adminSnapshot in snapshot.children) {
+                    val admin = adminSnapshot.getValue(Admin::class.java)
+                    if (admin != null && admin.username == username && admin.password == password && admin.ownerAcc) {
+                        isOwnerAuthenticated = true
+                        adminId = adminSnapshot.key ?: ""
+                        break
+                    }
+                }
+                if (isOwnerAuthenticated) {
+                    saveOwnerId(adminId)
+                    // Authentication successful, proceed to next activity
+                    val intent = Intent(this@Owner_Login, OwnerHome::class.java)
+                    // Pass admin ID to the next activity
+                    intent.putExtra("adminId", adminId)
                     startActivity(intent)
+                    finish()
+                } else {
+                    // Authentication failed
+                    Toast.makeText(this@Owner_Login, "Invalid username or password", Toast.LENGTH_SHORT).show()
                 }
             }
 
-        }
+            override fun onCancelled(error: DatabaseError) {
+                // Handle database error
+                Toast.makeText(this@Owner_Login, "Database error", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 
+    // Function to save admin ID to SharedPreferences
+    private fun saveOwnerId(adminId: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString("adminId", adminId)
+        editor.apply()
     }
 }

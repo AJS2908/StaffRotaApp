@@ -34,7 +34,7 @@ class AdminLogin : AppCompatActivity() {
 
         val returnbut: Button = findViewById(R.id.returnbut)
         returnbut.setOnClickListener {
-            val intent = Intent(this, AdminTimetable::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
