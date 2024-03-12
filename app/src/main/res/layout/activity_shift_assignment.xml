@@ -7,6 +7,24 @@
     android:background="#446899"
     tools:context=".shiftAssignment">
 
+
+    <EditText
+        android:id="@+id/endTime"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:background="#E1E1E1"
+        android:ems="10"
+        android:hint="End Time"
+        android:inputType="time"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.844" />
+
     <Button
         android:id="@+id/shiftRetBut"
         style="@style/Widget.AppCompat.Button"
@@ -23,9 +41,10 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <CalendarView
-        android:id="@+id/calendarView2"
+        android:id="@+id/shiftDate"
         android:layout_width="0dp"
         android:layout_height="262dp"
+        android:minDate="01/01/2024"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -55,7 +74,53 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/calendarView2"
+        app:layout_constraintTop_toTopOf="@+id/shiftDate"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/employeeAssigned"
+        android:layout_width="379dp"
+        android:layout_height="48dp"
+        android:background="#E1E1E1"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="@+id/employeeList"
+        app:layout_constraintTop_toBottomOf="@+id/shiftDate"
+        app:layout_constraintVertical_bias="0.082" />
+
+    <EditText
+        android:id="@+id/startTime"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:background="#E1E1E1"
+        android:ems="10"
+        android:hint="Start Time"
+        android:inputType="time"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.738" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

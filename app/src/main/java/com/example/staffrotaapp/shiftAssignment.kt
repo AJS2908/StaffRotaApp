@@ -28,11 +28,11 @@ class shiftAssignment : AppCompatActivity() {
     private val filteredEmployeesList = mutableListOf<String>()
     private var selectedEmployeeId: String? = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shift_assignment)
 
+        // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Employees")
 
@@ -50,6 +50,7 @@ class shiftAssignment : AppCompatActivity() {
                 textView.text = filteredEmployeesList[position]
                 textView.setOnClickListener {
                     selectedEmployeeId = filteredEmployeesList[position].split(":")[0].trim()
+                    findViewById<TextView>(R.id.employeeAssigned).text = textView.text.toString() // Update TextView here
                     employeeRecyclerView.visibility = View.GONE
                 }
             }
