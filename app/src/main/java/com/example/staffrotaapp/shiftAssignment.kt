@@ -20,35 +20,25 @@ import com.google.firebase.database.ValueEventListener
 
 class shiftAssignment : AppCompatActivity() {
 
-    // Firebase Database instance
     private lateinit var database: FirebaseDatabase
     private lateinit var reference: DatabaseReference
-
-    // RecyclerView to display employees
     private lateinit var employeeRecyclerView: RecyclerView
-
-    // Adapter for RecyclerView
     private lateinit var employeeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
+    private val originalEmployeesList = mutableListOf<String>()
+    private val filteredEmployeesList = mutableListOf<String>()
+    private var selectedEmployeeId: String? = ""
 
-    // List to hold employee data
-    private val employeesList = mutableListOf<String>() // Declare employeesList here
-
-    // ID of the selected employee
-    private var selectedEmployeeId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shift_assignment)
 
-        // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Employees")
 
-        // Initialize RecyclerView
         employeeRecyclerView = findViewById(R.id.employeeList)
         employeeRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Set up RecyclerView Adapter
         employeeAdapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
                 val itemView = LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_1, parent, false)
@@ -57,21 +47,18 @@ class shiftAssignment : AppCompatActivity() {
 
             override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
                 val textView = holder.itemView as TextView
-                textView.text = employeesList[position]
+                textView.text = filteredEmployeesList[position]
                 textView.setOnClickListener {
-                    // Capture the ID of the selected employee
-                    selectedEmployeeId = employeesList[position].split(":")[0].trim()
-                    // Hide the RecyclerView
+                    selectedEmployeeId = filteredEmployeesList[position].split(":")[0].trim()
                     employeeRecyclerView.visibility = View.GONE
                 }
             }
 
-            override fun getItemCount(): Int = employeesList.size
+            override fun getItemCount(): Int = filteredEmployeesList.size
         }
 
         employeeRecyclerView.adapter = employeeAdapter
 
-        // Set up click listener for the search bar
         val searchBar: SearchView = findViewById(R.id.searchEmployee)
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -79,11 +66,12 @@ class shiftAssignment : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // Toggle RecyclerView visibility based on search query
                 if (newText.isNullOrEmpty()) {
+                    filteredEmployeesList.clear()
+                    filteredEmployeesList.addAll(originalEmployeesList)
+                    employeeAdapter.notifyDataSetChanged()
                     employeeRecyclerView.visibility = View.INVISIBLE
                 } else {
-                    // Filter employees based on search query
                     filterEmployees(newText)
                     employeeRecyclerView.visibility = View.VISIBLE
                 }
@@ -91,51 +79,44 @@ class shiftAssignment : AppCompatActivity() {
             }
         })
 
-        // Set up return button click listener
         val shiftReturnButton: Button = findViewById(R.id.shiftRetBut)
         shiftReturnButton.setOnClickListener {
-            // Navigate back to AdminHome
             val intent = Intent(this, AdminHome::class.java)
             startActivity(intent)
         }
 
-        // Fetch and display employees from Firebase Realtime Database
         fetchEmployees()
     }
 
-    // Function to fetch employees from Firebase Realtime Database
     private fun fetchEmployees() {
         reference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val employees = mutableListOf<String>()
+                originalEmployeesList.clear()
                 for (employeeSnapshot in snapshot.children) {
                     val employee = employeeSnapshot.getValue(Employee::class.java)
                     employee?.let {
                         val employeeInfo = "${it.employeeId}: ${it.firstName} ${it.lastName}, ${it.email}"
-                        employees.add(employeeInfo)
+                        originalEmployeesList.add(employeeInfo)
                     }
                 }
-
-                // Update the adapter's data source with fetched employee data
-                employeesList.clear() // Clear the previous data
-                employeesList.addAll(employees)
-
-                // Notify the adapter of the data change
+                filteredEmployeesList.clear()
+                filteredEmployeesList.addAll(originalEmployeesList)
                 employeeAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle database error
                 Log.e("ShiftAssignment", "Error fetching employees: ${error.message}")
             }
         })
     }
 
-    // Function to filter employees based on search query
     private fun filterEmployees(query: String) {
-        val filteredList = employeesList.filter { it.contains(query, ignoreCase = true) }
-        employeesList.clear()
-        employeesList.addAll(filteredList)
+        filteredEmployeesList.clear()
+        for (employeeInfo in originalEmployeesList) {
+            if (employeeInfo.contains(query, ignoreCase = true)) {
+                filteredEmployeesList.add(employeeInfo)
+            }
+        }
         employeeAdapter.notifyDataSetChanged()
     }
 }
