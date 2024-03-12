@@ -80,9 +80,13 @@ class shiftAssignment : AppCompatActivity() {
             }
         })
 
+        val adminId = intent.getStringExtra("adminId")
+
         val shiftReturnButton: Button = findViewById(R.id.shiftRetBut)
         shiftReturnButton.setOnClickListener {
-            val intent = Intent(this, AdminHome::class.java)
+            val intent = Intent(this, AdminHome::class.java).apply {
+                putExtra("adminId", adminId)
+            }
             startActivity(intent)
         }
 
