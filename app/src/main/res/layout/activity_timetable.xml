@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/DateShift"
         android:layout_width="0dp"
         android:layout_height="303dp"
         android:background="#E4D2D2"
@@ -36,14 +36,15 @@
         app:layout_constraintVertical_bias="0.14" />
 
     <ListView
+        android:id="@+id/Shifts"
         android:layout_width="0dp"
-        android:layout_height="563dp"
+        android:layout_height="475dp"
         android:background="#CDC7C7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.972" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

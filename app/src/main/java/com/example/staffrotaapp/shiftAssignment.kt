@@ -1,14 +1,17 @@
 package com.example.staffrotaapp
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CalendarView
 import android.widget.SearchView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +20,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+
 
 class shiftAssignment : AppCompatActivity() {
 
@@ -28,6 +36,7 @@ class shiftAssignment : AppCompatActivity() {
     private val filteredEmployeesList = mutableListOf<String>()
     private var selectedEmployeeId: String? = ""
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shift_assignment)
@@ -80,6 +89,7 @@ class shiftAssignment : AppCompatActivity() {
             }
         })
 
+        //carries the current user to the new window
         val adminId = intent.getStringExtra("adminId")
 
         val shiftReturnButton: Button = findViewById(R.id.shiftRetBut)
@@ -88,6 +98,32 @@ class shiftAssignment : AppCompatActivity() {
                 putExtra("adminId", adminId)
             }
             startActivity(intent)
+        }
+
+        // Save shift button click listener
+        val saveShiftButton: Button = findViewById(R.id.saveShift)
+        saveShiftButton.setOnClickListener {
+            // Get start time and end time values from UI elements
+            val startTimeText = findViewById<TextView>(R.id.startTime).text.toString()
+            val endTimeText = findViewById<TextView>(R.id.endTime).text.toString()
+
+            // Parse start time and end time into LocalTime objects
+            val startTime = TimeTableDC.parseLocalTime(startTimeText)
+            val endTime = TimeTableDC.parseLocalTime(endTimeText)
+
+            // Check if end time is after start time
+            if (endTime.isAfter(startTime)) {
+                val selectedDateMillis = findViewById<CalendarView>(R.id.shiftDate).date
+                val selectedDate = LocalDate.ofEpochDay(selectedDateMillis / (24 * 60 * 60 * 1000))
+                val formattedDate = TimeTableDC.formatLocalDate(selectedDate)
+                val selectedDateString = TimeTableDC.formatLocalDate(selectedDate) // Format selected date
+                // Proceed to save the shift using the captured values
+                selectedEmployeeId?.let { employeeId ->
+                    generateShiftId(startTime, endTime, selectedDate)
+                }
+            } else {
+                Log.e("ShiftAssignment", "End time must be after start time")
+            }
         }
 
         fetchEmployees()
@@ -123,5 +159,65 @@ class shiftAssignment : AppCompatActivity() {
             }
         }
         employeeAdapter.notifyDataSetChanged()
+    }
+
+    private fun generateShiftId(startTime: LocalTime, endTime: LocalTime, selectedDate: LocalDate) {
+        val employeeData = findViewById<TextView>(R.id.employeeAssigned).text.toString()
+        reference = database.getReference("Timetable")
+        reference.orderByChild("shiftID").limitToLast(1).addListenerForSingleValueEvent(object : ValueEventListener {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var maxId: Long = 0L // Initialize maxId as Long
+                for (shiftSnapshot in snapshot.children) {
+                    val shiftIdString = shiftSnapshot.child("shiftID").getValue(String::class.java)
+                    val shiftId = shiftIdString?.toLongOrNull()
+                    shiftId?.let {
+                        if (it > maxId) {
+                            maxId = it
+                        }
+                    }
+                }
+                reference = database.getReference("Timetable")
+                val newId: String = (maxId + 1L).toString()
+                val shiftLength = Duration.between(startTime, endTime).toMinutes().toDouble() / 60.0
+                val startTimeString = startTime.format(DateTimeFormatter.ofPattern("HH:mm")) // Format startTime
+                val endTimeString = endTime.format(DateTimeFormatter.ofPattern("HH:mm")) // Format endTime
+                val selectedDateString = TimeTableDC.formatLocalDate(selectedDate) // Format selected date
+                selectedEmployeeId?.let { employeeId ->
+                    val shift = TimeTableDC(
+                        shiftID = newId,
+                        shiftDate = selectedDateString,
+                        startTime = startTimeString,
+                        endTime = endTimeString,
+                        shiftLength = shiftLength,
+                        employeeData = employeeData
+                    )
+                    saveShiftToDatabase(shift)
+                    Log.d("ShiftAssignment", "Shift ID generated and saved to database")
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("ShiftAssignment", "Error generating shift ID: ${error.message}")
+            }
+        })
+    }
+    private fun saveShiftToDatabase(shift: TimeTableDC) {
+        reference.child(shift.shiftID).setValue(shift)
+            .addOnSuccessListener {
+                Log.d("ShiftAssignment", "Shift saved successfully")
+                // Navigate to AdminHome activity
+                val adminId = intent.getStringExtra("adminId")
+                val intent = Intent(this, shiftAssignment::class.java).apply {
+                    putExtra("adminId", adminId)
+                }
+                startActivity(intent)
+            }
+            .addOnFailureListener { e ->
+                Log.e("ShiftAssignment", "Error saving shift: ${e.message}", e)
+                // Optionally, you can print the stack trace for more detailed error information
+                e.printStackTrace()
+            }
     }
 }
