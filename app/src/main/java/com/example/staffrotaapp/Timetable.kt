@@ -35,7 +35,7 @@ class Timetable : AppCompatActivity() {
         calendarView = findViewById(R.id.DateShift)
         shiftsListView = findViewById(R.id.Shifts)
         database = FirebaseDatabase.getInstance()
-        reference = database.getReference("timetable")
+        reference = database.getReference("Timetable")
 
         shiftsAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, shiftsList)
         shiftsListView.adapter = shiftsAdapter
