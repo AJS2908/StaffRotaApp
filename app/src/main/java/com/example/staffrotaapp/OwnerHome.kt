@@ -28,6 +28,13 @@ class OwnerHome : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val OwnerFeedbackbut: Button = findViewById(R.id.FeedbackButton)
+        OwnerFeedbackbut.setOnClickListener {
+            val intent = Intent(this, ViewFeedback::class.java)
+            startActivity(intent)
+        }
+
+
 
     }
 }
