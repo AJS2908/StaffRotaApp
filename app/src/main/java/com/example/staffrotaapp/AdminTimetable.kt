@@ -10,11 +10,7 @@ import android.widget.CalendarView
 import android.widget.ListView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -40,6 +36,20 @@ class AdminTimetable : AppCompatActivity() {
         shiftsAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, shiftsList)
         shiftsListView.adapter = shiftsAdapter
 
+        // Set click listener for shiftsListView
+        shiftsListView.setOnItemClickListener { _, _, position, _ ->
+            // Get the selected shift's data and shiftId from the adapter
+            val selectedShift = shiftsAdapter.getItem(position)
+            val selectedShiftId = getShiftId(selectedShift)
+            // Create an Intent to launch TimeTableEdit activity
+            val intent = Intent(this@AdminTimetable, TimeTableEdit::class.java).apply {
+                // Pass the selected shift's data and shiftId as extras
+                putExtra("shiftId", selectedShiftId)
+            }
+            // Start the TimeTableEdit activity
+            startActivity(intent)
+        }
+
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             // Create a LocalDate object with the selected date
             val selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
@@ -59,6 +69,7 @@ class AdminTimetable : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     private fun fetchShiftsForDate(date: String) {
         reference.orderByChild("shiftDate").equalTo(date).addListenerForSingleValueEvent(object :
             ValueEventListener {
@@ -80,4 +91,9 @@ class AdminTimetable : AppCompatActivity() {
         })
     }
 
+    private fun getShiftId(shiftData: String?): Int {
+        return shiftData?.substringAfterLast("Shift ID: ")?.toIntOrNull() ?: -1
+    }
+
 }
+
