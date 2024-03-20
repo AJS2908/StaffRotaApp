@@ -21,14 +21,28 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ListView
-        android:layout_width="332dp"
-        android:layout_height="581dp"
-        android:background="#FFFFFF"
+    <CalendarView
+        android:id="@+id/DateShift"
+        android:layout_width="0dp"
+        android:layout_height="303dp"
+        android:background="#E4D2D2"
+        android:minDate="01/01/2024"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.613" />
+        app:layout_constraintVertical_bias="0.14" />
+
+    <ListView
+        android:id="@+id/Shifts"
+        android:layout_width="0dp"
+        android:layout_height="432dp"
+        android:background="#CDC7C7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.692" />
 </androidx.constraintlayout.widget.ConstraintLayout>
