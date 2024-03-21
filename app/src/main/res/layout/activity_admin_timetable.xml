@@ -37,7 +37,7 @@
     <ListView
         android:id="@+id/Shifts"
         android:layout_width="0dp"
-        android:layout_height="382dp"
+        android:layout_height="522dp"
         android:background="#CDC7C7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
