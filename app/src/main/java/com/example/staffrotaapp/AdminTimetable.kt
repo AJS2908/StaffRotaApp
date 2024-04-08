@@ -10,7 +10,11 @@ import android.widget.CalendarView
 import android.widget.ListView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -37,16 +41,14 @@ class AdminTimetable : AppCompatActivity() {
         shiftsListView.adapter = shiftsAdapter
 
         // Set click listener for shiftsListView
-        shiftsListView.setOnItemClickListener { _, _, position, _ ->
-            // Get the selected shift's data and shiftId from the adapter
-            val selectedShift = shiftsAdapter.getItem(position)
-            val selectedShiftId = getShiftId(selectedShift)
-            // Create an Intent to launch TimeTableEdit activity
+        shiftsListView.setOnItemClickListener { parent, view, position, id ->
+            // Get the selected item which contains both shift ID and shift information
+            val selectedItem = parent.getItemAtPosition(position) as? String
+            // Extract shift ID from the selected item
+            val shiftId = selectedItem?.substringBefore(":")
             val intent = Intent(this@AdminTimetable, TimeTableEdit::class.java).apply {
-                // Pass the selected shift's data and shiftId as extras
-                putExtra("shiftId", selectedShiftId)
+                putExtra("shiftId", shiftId)
             }
-            // Start the TimeTableEdit activity
             startActivity(intent)
         }
 
@@ -76,10 +78,12 @@ class AdminTimetable : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 shiftsList.clear()
                 for (shiftSnapshot in snapshot.children) {
+                    val shiftId = shiftSnapshot.key // Get the shift ID
                     val shiftData = shiftSnapshot.getValue(TimeTableDC::class.java)
                     shiftData?.let {
                         val shiftInfo = "Employee: ${it.employeeData}, Start Time: ${it.startTime}, End Time: ${it.endTime}"
-                        shiftsList.add(shiftInfo)
+                        // Combine shift ID and shift information
+                        shiftsList.add("$shiftId: $shiftInfo")
                     }
                 }
                 shiftsAdapter.notifyDataSetChanged()
@@ -89,10 +93,6 @@ class AdminTimetable : AppCompatActivity() {
                 Log.e("Timetable", "Error fetching shifts: ${error.message}")
             }
         })
-    }
-
-    private fun getShiftId(shiftData: String?): Int {
-        return shiftData?.substringAfterLast("Shift ID: ")?.toIntOrNull() ?: -1
     }
 
 }
