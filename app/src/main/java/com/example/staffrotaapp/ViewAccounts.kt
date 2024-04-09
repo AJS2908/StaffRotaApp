@@ -66,6 +66,18 @@ class ViewAccounts : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // Set up item click listener for accountListView
+        accountListView.setOnItemClickListener { parent, view, position, id ->
+            val selectedItem = parent.getItemAtPosition(position) as? String
+            val employeeId = selectedItem?.substringBefore(":")?.trim()
+            if (employeeId != null) {
+                val intent = Intent(this@ViewAccounts, editEmployee::class.java).apply {
+                    putExtra("employeeId", employeeId.toInt())
+                }
+                startActivity(intent)
+            }
+        }
+
         // Fetch and display accounts from Firebase Realtime Database
         fetchAccounts()
     }
