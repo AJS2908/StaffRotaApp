@@ -1,11 +1,13 @@
 package com.example.staffrotaapp
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -13,7 +15,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 class TimeTableEdit : AppCompatActivity() {
@@ -25,9 +28,11 @@ class TimeTableEdit : AppCompatActivity() {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var reference: DatabaseReference
+    private var formattedDate: String = ""
 
     private lateinit var shiftId: String // Assuming you have the shift ID
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_table_edit)
@@ -47,35 +52,45 @@ class TimeTableEdit : AppCompatActivity() {
         endTimeEditText = findViewById(R.id.endTime)
         dateCalendarView = findViewById(R.id.shiftDate)
         saveButton = findViewById(R.id.ConfirmEdit)
+        dateCalendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            // Create a LocalDate object with the selected date
+            val selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
+            // Format the date with zero-padded month and day
+            formattedDate = selectedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            // Log the selected date for debugging
+            Log.d("TimeTableEdit", "Selected date: $formattedDate")
+        }
 
         // Set up click listener for the save button
         saveButton.setOnClickListener {
-            // Get the edited shift data from the UI components
-            val startTime = startTimeEditText.text.toString()
-            val endTime = endTimeEditText.text.toString()
-            val dateMillis = dateCalendarView.date
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val date = sdf.format(Date(dateMillis))
+            // Ensure formattedDate is not empty
+            if (formattedDate.isNotEmpty()) {
+                // Get the edited shift data from the UI components
+                val startTime = startTimeEditText.text.toString()
+                val endTime = endTimeEditText.text.toString()
 
-            // Calculate the shift length
-            val duration = calculateDuration(startTime, endTime)
+                // Calculate the shift length
+                val duration = calculateDuration(startTime, endTime)
 
-            // Check if the shift ID is not empty
-            if (shiftId.isNotEmpty()) {
-                // Retrieve employee data for the given shift ID
-                retrieveEmployeeData(shiftId) { employeeData ->
-                    if (employeeData.isNotEmpty()) {
-                        // Update the shift data in the Firebase Realtime Database
-                        updateShiftData(startTime, endTime, date, duration, employeeData, shiftId)
+                // Check if the shift ID is not empty
+                if (shiftId.isNotEmpty()) {
+                    // Retrieve employee data for the given shift ID
+                    retrieveEmployeeData(shiftId) { employeeData ->
+                        if (employeeData.isNotEmpty()) {
+                            // Update the shift data in the Firebase Realtime Database
+                            updateShiftData(startTime, endTime, formattedDate, duration, employeeData, shiftId)
 
-                        // Display a toast message indicating that the data has been updated
-                        Toast.makeText(this, "Shift data updated successfully", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this, "Employee data is empty", Toast.LENGTH_SHORT).show()
+                            // Display a toast message indicating that the data has been updated
+                            Toast.makeText(this, "Shift data updated successfully", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "Employee data is empty", Toast.LENGTH_SHORT).show()
+                        }
                     }
+                } else {
+                    Toast.makeText(this, "Shift ID is empty", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "Shift ID is empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "No date selected", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -97,18 +112,19 @@ class TimeTableEdit : AppCompatActivity() {
 
     private fun calculateDuration(startTime: String, endTime: String): Double {
         val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val startDate = sdf.parse(startTime)
-        val endDate = sdf.parse(endTime)
-        val diff = endDate.time - startDate.time
+        val startTimeDate = sdf.parse(startTime)
+        val endTimeDate = sdf.parse(endTime)
+        val diff = endTimeDate.time - startTimeDate.time
         val hours = diff / (60 * 60 * 1000).toDouble() // Convert to double
         val minutes = (diff % (60 * 60 * 1000)) / (60 * 1000).toDouble() // Convert to double
         return hours + (minutes / 60.0) // Combine hours and minutes as double
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun updateShiftData(
         startTime: String,
         endTime: String,
-        date: String,
+        selectedDate: String,
         duration: Double,
         employeeData: String,
         shiftIdParam: String
@@ -119,7 +135,7 @@ class TimeTableEdit : AppCompatActivity() {
         val updates = mapOf<String, Any>(
             "startTime" to startTime,
             "endTime" to endTime,
-            "shiftDate" to date,
+            "shiftDate" to selectedDate, // Update the shiftDate with the selectedDate
             "shiftLength" to duration,
             "employeeData" to employeeData,
             "shiftID" to shiftIdParam

@@ -32,9 +32,11 @@ class shiftAssignment : AppCompatActivity() {
     private lateinit var reference: DatabaseReference
     private lateinit var employeeRecyclerView: RecyclerView
     private lateinit var employeeAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>
+    private lateinit var dateCalendarView: CalendarView
     private val originalEmployeesList = mutableListOf<String>()
     private val filteredEmployeesList = mutableListOf<String>()
     private var selectedEmployeeId: String? = ""
+    private var selectedDate: LocalDate? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +46,16 @@ class shiftAssignment : AppCompatActivity() {
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Employees")
-
+        dateCalendarView = findViewById(R.id.shiftDate)
         employeeRecyclerView = findViewById(R.id.employeeList)
         employeeRecyclerView.layoutManager = LinearLayoutManager(this)
+
+        dateCalendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            // Set the selectedDate property with the selected date
+            selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
+            // Log the selected date for debugging
+            Log.d("shiftAssignment", "Selected date: $selectedDate")
+        }
 
         employeeAdapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -103,7 +112,6 @@ class shiftAssignment : AppCompatActivity() {
         // Save shift button click listener
         val saveShiftButton: Button = findViewById(R.id.saveShift)
         saveShiftButton.setOnClickListener {
-            // Get start time and end time values from UI elements
             val startTimeText = findViewById<TextView>(R.id.startTime).text.toString()
             val endTimeText = findViewById<TextView>(R.id.endTime).text.toString()
 
@@ -113,13 +121,11 @@ class shiftAssignment : AppCompatActivity() {
 
             // Check if end time is after start time
             if (endTime.isAfter(startTime)) {
-                val selectedDateMillis = findViewById<CalendarView>(R.id.shiftDate).date
-                val selectedDate = LocalDate.ofEpochDay(selectedDateMillis / (24 * 60 * 60 * 1000))
-                val formattedDate = TimeTableDC.formatLocalDate(selectedDate)
-                val selectedDateString = TimeTableDC.formatLocalDate(selectedDate) // Format selected date
                 // Proceed to save the shift using the captured values
                 selectedEmployeeId?.let { employeeId ->
-                    generateShiftId(startTime, endTime, selectedDate)
+                    selectedDate?.let { date ->
+                        generateShiftId(startTime, endTime, date)
+                    }
                 }
             } else {
                 Log.e("ShiftAssignment", "End time must be after start time")
