@@ -100,6 +100,11 @@ class TimeTableEdit : AppCompatActivity() {
                 Toast.makeText(this, "No date selected", Toast.LENGTH_SHORT).show()
             }
         }
+        val deleteShiftButton: Button = findViewById(R.id.deleteShift)
+        deleteShiftButton.setOnClickListener {
+            // Call a function to delete the shift
+            deleteShift(shiftId)
+        }
     }
 
     private fun retrieveEmployeeData(shiftId: String, callback: (String) -> Unit) {
@@ -157,5 +162,29 @@ class TimeTableEdit : AppCompatActivity() {
                 // Handle failure
                 Toast.makeText(this, "Failed to update shift data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun deleteShift(shiftId: String) {
+        // Check if the shift ID is not empty
+        if (shiftId.isNotEmpty()) {
+            // Get a reference to the shift to be deleted
+            val shiftRef = reference.child(shiftId)
+
+            // Remove the shift data from the database
+            shiftRef.removeValue()
+                .addOnSuccessListener {
+                    // Handle success
+                    Toast.makeText(this, "Shift deleted successfully", Toast.LENGTH_SHORT).show()
+
+                    // Optionally, navigate back to the previous activity
+                    finish()
+                }
+                .addOnFailureListener { e ->
+                    // Handle failure
+                    Toast.makeText(this, "Failed to delete shift: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "Shift ID is empty", Toast.LENGTH_SHORT).show()
+        }
     }
 }
