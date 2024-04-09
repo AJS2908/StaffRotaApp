@@ -1,5 +1,6 @@
 package com.example.staffrotaapp
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -59,6 +60,12 @@ class TimeTableEdit : AppCompatActivity() {
             formattedDate = selectedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             // Log the selected date for debugging
             Log.d("TimeTableEdit", "Selected date: $formattedDate")
+        }
+
+        val editShifRetButton: Button = findViewById(R.id.editShiftRetBut)
+        editShifRetButton.setOnClickListener {
+            val intent = Intent(this, AdminTimetable::class.java)
+            startActivity(intent)
         }
 
         // Set up click listener for the save button
