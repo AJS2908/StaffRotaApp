@@ -1,13 +1,16 @@
 package com.example.staffrotaapp
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class EditAdminAccount : AppCompatActivity() {
 
@@ -28,7 +31,6 @@ class EditAdminAccount : AppCompatActivity() {
     private lateinit var saveButton: Button
     private lateinit var deleteButton: Button
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_admin_account)
