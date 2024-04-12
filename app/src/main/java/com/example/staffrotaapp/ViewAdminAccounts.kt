@@ -60,6 +60,17 @@ class ViewAdminAccounts : AppCompatActivity() {
 
         // Fetch and display accounts from Firebase Realtime Database
         fetchAccounts()
+
+        // Set long click listener for the ListView items
+        accountListView.setOnItemLongClickListener { _, _, position, _ ->
+            val adminInfo = accountAdapter.getItem(position) // Get the item at the clicked position
+            val adminId = adminInfo?.split(":")?.get(0) // Split the string to get the adminId
+            // Navigate to EditAdminAccount activity and pass the adminId
+            val intent = Intent(this, EditAdminAccount::class.java)
+            intent.putExtra("adminId", adminId)
+            startActivity(intent)
+            true // Consume the long click event
+        }
     }
 
     // Function to fetch accounts from Firebase Realtime Database

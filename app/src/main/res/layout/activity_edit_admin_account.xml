@@ -5,32 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#446899"
-    tools:context=".AddNewAdmin">
+    tools:context=".EditAdminAccount">
 
     <Button
-        android:id="@+id/delete"
+        android:id="@+id/addNewAddAccount"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="174dp"
-        android:layout_height="74dp"
+        android:layout_width="310dp"
+        android:layout_height="72dp"
         android:background="#B8BEBF"
-        android:text="delete"
+        android:text="Add Admin Profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.932"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/edit"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="174dp"
-        android:layout_height="74dp"
-        android:background="#B8BEBF"
-        android:text="Edit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.064"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.998" />
@@ -182,4 +168,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.891" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

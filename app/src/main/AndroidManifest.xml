@@ -13,6 +13,9 @@
         android:theme="@style/Theme.StaffRotaApp"
         tools:targetApi="31">
         <activity
+            android:name=".EditAdminAccount"
+            android:exported="false" />
+        <activity
             android:name=".editEmployee"
             android:exported="false" />
         <activity
