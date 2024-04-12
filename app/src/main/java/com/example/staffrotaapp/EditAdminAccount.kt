@@ -115,7 +115,7 @@ class EditAdminAccount : AppCompatActivity() {
             reference.child(adminId).child("lastName").setValue(updatedLastName)
         }
         if (updatedNINumber.isNotEmpty()) {
-            reference.child(adminId).child("nINumber").setValue(updatedNINumber)
+            reference.child(adminId).child("ninumber").setValue(updatedNINumber)
         }
         reference.child(adminId).child("ownerAcc").setValue(updatedOwnerAcc)
 
