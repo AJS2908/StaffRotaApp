@@ -8,18 +8,32 @@
     tools:context=".EditAdminAccount">
 
     <Button
-        android:id="@+id/addNewAddAccount"
+        android:id="@+id/edit"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="310dp"
-        android:layout_height="72dp"
+        android:layout_width="174dp"
+        android:layout_height="74dp"
         android:background="#B8BEBF"
-        android:text="Add Admin Profile"
+        android:text="Edit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.998" />
+
+    <Button
+        android:id="@+id/delete"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="174dp"
+        android:layout_height="74dp"
+        android:background="#B8BEBF"
+        android:text="delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/crtAdmProfileRetBut"
