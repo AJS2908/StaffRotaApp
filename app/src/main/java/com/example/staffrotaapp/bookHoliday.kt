@@ -19,7 +19,6 @@ import java.time.format.DateTimeFormatter
 
 class bookHoliday : AppCompatActivity() {
 
-    // Firebase Database instance
     private lateinit var database: FirebaseDatabase
     private lateinit var reference: DatabaseReference
     private lateinit var startDateCalendarView: CalendarView
@@ -27,7 +26,6 @@ class bookHoliday : AppCompatActivity() {
     private lateinit var confirmBooking: Button
     private var startDate: LocalDate? = null
     private var endDate: LocalDate? = null
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
