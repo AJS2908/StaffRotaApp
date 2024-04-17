@@ -8,6 +8,40 @@
     tools:context=".CreateNewAccount">
 
     <EditText
+        android:id="@+id/holidays"
+        android:layout_width="381dp"
+        android:layout_height="60dp"
+        android:background="#E1E1E1"
+        android:ems="10"
+        android:hint="Holiday days"
+        android:inputType="number"
+        android:textColor="#595656"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.919" />
+
+    <EditText
+        android:id="@+id/nINumber"
+        android:layout_width="381dp"
+        android:layout_height="81dp"
+        android:background="#E1E1E1"
+        android:ems="10"
+        android:hint="NI Number"
+        android:inputType="text"
+        android:textColor="#595656"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.824" />
+
+    <EditText
         android:id="@+id/email"
         android:layout_width="381dp"
         android:layout_height="85dp"
@@ -22,57 +56,7 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.201" />
-
-    <EditText
-        android:id="@+id/username"
-        android:layout_width="381dp"
-        android:layout_height="85dp"
-        android:background="#E1E1E1"
-        android:ems="10"
-        android:hint="username"
-        android:inputType="text"
-        android:textColor="#595656"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
-
-    <EditText
-        android:id="@+id/fName"
-        android:layout_width="381dp"
-        android:layout_height="85dp"
-        android:background="#E1E1E1"
-        android:ems="10"
-        android:hint="First Name"
-        android:inputType="text"
-        android:textColor="#595656"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.331" />
-
-    <EditText
-        android:id="@+id/lName"
-        android:layout_width="381dp"
-        android:layout_height="85dp"
-        android:background="#E1E1E1"
-        android:ems="10"
-        android:hint="Last Name"
-        android:inputType="text"
-        android:textColor="#595656"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.462" />
+        app:layout_constraintVertical_bias="0.185" />
 
     <EditText
         android:id="@+id/confirm"
@@ -90,15 +74,31 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.715" />
+        app:layout_constraintVertical_bias="0.7" />
 
     <EditText
-        android:id="@+id/nINumber"
+        android:id="@+id/username"
         android:layout_width="381dp"
-        android:layout_height="81dp"
+        android:layout_height="85dp"
         android:background="#E1E1E1"
         android:ems="10"
-        android:hint="NI Number"
+        android:hint="username"
+        android:inputType="text"
+        android:textColor="#595656"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.054" />
+
+    <EditText
+        android:id="@+id/fName"
+        android:layout_width="381dp"
+        android:layout_height="85dp"
+        android:background="#E1E1E1"
+        android:ems="10"
+        android:hint="First Name"
         android:inputType="text"
         android:textColor="#595656"
         android:textSize="48sp"
@@ -107,7 +107,24 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.84" />
+        app:layout_constraintVertical_bias="0.315" />
+
+    <EditText
+        android:id="@+id/lName"
+        android:layout_width="381dp"
+        android:layout_height="85dp"
+        android:background="#E1E1E1"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="text"
+        android:textColor="#595656"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.447" />
 
     <EditText
         android:id="@+id/password"
@@ -125,7 +142,7 @@
         app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.59" />
+        app:layout_constraintVertical_bias="0.575" />
 
     <Button
         android:id="@+id/createAccountsReturn"
@@ -143,8 +160,8 @@
 
     <Button
         android:id="@+id/createButton"
-        android:layout_width="170dp"
-        android:layout_height="75dp"
+        android:layout_width="234dp"
+        android:layout_height="49dp"
         android:background="#B8BEBF"
         android:text="create"
         app:layout_constraintBottom_toBottomOf="parent"

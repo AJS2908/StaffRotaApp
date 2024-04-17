@@ -7,5 +7,6 @@ data class Employee(
     val lastName: String = "",
     val email: String = "",
     val password: String = "",
-    val nINumber: String = ""
+    val nINumber: String = "",
+    val Holidays: Int = 0
 )

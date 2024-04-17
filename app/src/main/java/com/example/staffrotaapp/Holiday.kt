@@ -1,12 +1,11 @@
 package com.example.staffrotaapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ListView
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class Holiday : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +15,12 @@ class Holiday : AppCompatActivity() {
         val Holidayretbutton: Button = findViewById(R.id.holidayRetBut)
         Holidayretbutton.setOnClickListener {
             val intent = Intent(this, HomeScreen::class.java)
+            startActivity(intent)
+        }
+
+        val BookHoliday: Button = findViewById(R.id.bookHoliday)
+        BookHoliday.setOnClickListener {
+            val intent = Intent(this, bookHoliday::class.java)
             startActivity(intent)
         }
 

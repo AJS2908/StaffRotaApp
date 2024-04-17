@@ -33,6 +33,7 @@ class CreateNewAccount : AppCompatActivity() {
     private lateinit var lastName: EditText
     private lateinit var nINumber: EditText
     private lateinit var confirm: EditText
+    private lateinit var holiday: EditText
     private lateinit var createButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +66,7 @@ class CreateNewAccount : AppCompatActivity() {
         lastName = findViewById(R.id.lName)
         nINumber = findViewById(R.id.nINumber)
         confirm = findViewById(R.id.confirm)
+        holiday = findViewById(R.id.holidays)
         createButton = findViewById(R.id.createButton)
 
         // Set click listener for createButton
@@ -75,7 +77,9 @@ class CreateNewAccount : AppCompatActivity() {
             val fName = firstName.text.toString()
             val lName = lastName.text.toString()
             val nINum = nINumber.text.toString()
+            val holidayInput = holiday.text.toString()
             val confirmPass = confirm.text.toString()
+
 
             // Validate input fields
             var hasError = false
@@ -101,6 +105,10 @@ class CreateNewAccount : AppCompatActivity() {
             }
             if (nINum.isEmpty()) {
                 nINumber.error = "National Insurance number cannot be empty"
+                hasError = true
+            }
+            if (holidayInput.isEmpty()) {
+                holiday.error = "Holiday number cannot be empty"
                 hasError = true
             }
             if (confirmPass != pass) {
@@ -131,7 +139,8 @@ class CreateNewAccount : AppCompatActivity() {
         firstName: String,
         lastName: String,
         nINumber: String,
-        employeeId: Int
+        employeeId: Int,
+        holidays: Int  // Added parameter for holiday days
     ) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -143,7 +152,8 @@ class CreateNewAccount : AppCompatActivity() {
                         lastName,
                         email,
                         password,
-                        nINumber
+                        nINumber,
+                        holidays  // Added holiday days to the Employee object
                     )
                     reference.child(employeeId.toString())
                         .setValue(employee)
@@ -173,28 +183,36 @@ class CreateNewAccount : AppCompatActivity() {
 
     // Function to generate a unique employee ID
     private fun generateEmployeeId() {
-        reference.orderByChild("employeeId").limitToLast(1).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var maxId = 0
-                for (employeeSnapshot in snapshot.children) {
-                    val employee = employeeSnapshot.getValue(Employee::class.java)
-                    val employeeId = employee?.employeeId ?: 0
-                    if (employeeId > maxId) {
-                        maxId = employeeId
+        reference.orderByChild("employeeId").limitToLast(1)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    var maxId = 0
+                    for (employeeSnapshot in snapshot.children) {
+                        val employee = employeeSnapshot.getValue(Employee::class.java)
+                        val employeeId = employee?.employeeId ?: 0
+                        if (employeeId > maxId) {
+                            maxId = employeeId
+                        }
                     }
+                    // Once the maximum id is found, increment it by 1
+                    val newId = maxId + 1
+                    // Convert holiday input to Int
+                    val holidayInput = holiday.text.toString().toIntOrNull() ?: 0
+                    createNewAccount(
+                        username.text.toString(),
+                        email.text.toString(),
+                        password.text.toString(),
+                        firstName.text.toString(),
+                        lastName.text.toString(),
+                        nINumber.text.toString(),
+                        newId,
+                        holidayInput  // Pass holidayInput instead of holiday
+                    )
                 }
-                // Once the maximum id is found, increment it by 1
-                val newId = maxId + 1
-                createNewAccount(
-                    username.text.toString(), email.text.toString(), password.text.toString(),
-                    firstName.text.toString(), lastName.text.toString(), nINumber.text.toString(), newId
-                )
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                // Handle database error
-                println("Error: ${error.message}")
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    println("Error: ${error.message}")
+                }
+            })
     }
 }
