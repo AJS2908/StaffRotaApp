@@ -140,7 +140,7 @@ class bookHoliday : AppCompatActivity() {
     }
 
     private fun saveHolidayToDatabase(holiday: HolidayHelper) {
-        reference.child("requests").child(holiday.holidayID.toString()).setValue(holiday)
+        reference.child(holiday.holidayID.toString()).setValue(holiday)
             .addOnSuccessListener {
                 Log.d("Holiday booking", "request saved successfully")
                 // Navigate to AdminHome activity
