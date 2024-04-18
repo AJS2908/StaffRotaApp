@@ -14,7 +14,7 @@
         android:layout_width="0dp"
         android:layout_height="76dp"
         android:background="#B8BEBF"
-        android:text="View Admin Profile"
+        android:text="View Accounts"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
