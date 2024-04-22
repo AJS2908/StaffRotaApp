@@ -140,15 +140,13 @@ class bookHoliday : AppCompatActivity() {
     private fun saveHolidayToDatabase(holiday: HolidayHelper) {
         reference.child(holiday.holidayID.toString()).setValue(holiday)
             .addOnSuccessListener {
-                Log.d("Holiday booking", "request saved successfully")
-                // Navigate to AdminHome activity
+                Log.d("Holiday booking", "request saved successfully") // Navigate to AdminHome activity
                 val intent = Intent(this@bookHoliday, Holiday::class.java)
                 startActivity(intent)
                 finish() // Finish the current activity to prevent navigating back to it from the next activity
             }
             .addOnFailureListener { e ->
                 Log.e("Holiday booking", "Error saving Holiday: ${e.message}", e)
-                // Optionally, you can print the stack trace for more detailed error information
                 e.printStackTrace()
             }
     }
