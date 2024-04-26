@@ -26,7 +26,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 
-class shiftAssignment : AppCompatActivity() {
+class ShiftAssignment : AppCompatActivity() {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var reference: DatabaseReference
@@ -215,7 +215,7 @@ class shiftAssignment : AppCompatActivity() {
                 Log.d("ShiftAssignment", "Shift saved successfully")
                 // Navigate to AdminHome activity
                 val adminId = intent.getStringExtra("adminId")
-                val intent = Intent(this, shiftAssignment::class.java).apply {
+                val intent = Intent(this, ShiftAssignment::class.java).apply {
                     putExtra("adminId", adminId)
                 }
                 startActivity(intent)

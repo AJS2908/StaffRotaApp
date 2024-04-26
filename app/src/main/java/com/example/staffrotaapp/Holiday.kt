@@ -14,7 +14,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import java.time.LocalDate
 
 class Holiday : AppCompatActivity() {
 
@@ -34,7 +33,7 @@ class Holiday : AppCompatActivity() {
 
         val BookHoliday: Button = findViewById(R.id.bookHoliday)
         BookHoliday.setOnClickListener {
-            val intent = Intent(this, bookHoliday::class.java)
+            val intent = Intent(this, BookHoliday::class.java)
             startActivity(intent)
         }
 

@@ -71,7 +71,7 @@ class ViewAccounts : AppCompatActivity() {
             val selectedItem = parent.getItemAtPosition(position) as? String
             val employeeId = selectedItem?.substringBefore(":")?.trim()
             if (employeeId != null) {
-                val intent = Intent(this@ViewAccounts, editEmployee::class.java).apply {
+                val intent = Intent(this@ViewAccounts, EditEmployee::class.java).apply {
                     putExtra("employeeId", employeeId.toInt())
                 }
                 startActivity(intent)

@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class bookHoliday : AppCompatActivity() {
+class BookHoliday : AppCompatActivity() {
 
     private lateinit var database: FirebaseDatabase
     private lateinit var reference: DatabaseReference
@@ -141,7 +141,7 @@ class bookHoliday : AppCompatActivity() {
         reference.child(holiday.holidayID.toString()).setValue(holiday)
             .addOnSuccessListener {
                 Log.d("Holiday booking", "request saved successfully") // Navigate to AdminHome activity
-                val intent = Intent(this@bookHoliday, Holiday::class.java)
+                val intent = Intent(this@BookHoliday, Holiday::class.java)
                 startActivity(intent)
                 finish() // Finish the current activity to prevent navigating back to it from the next activity
             }

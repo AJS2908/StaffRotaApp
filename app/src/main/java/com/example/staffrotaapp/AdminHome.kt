@@ -32,7 +32,7 @@ class AdminHome : AppCompatActivity() {
 
         val goshiftcreation: Button = findViewById(R.id.shiftassignbut)
         goshiftcreation.setOnClickListener {
-            val intent = Intent(this, shiftAssignment::class.java).apply {
+            val intent = Intent(this, ShiftAssignment::class.java).apply {
                 putExtra("adminId", adminId)
             }
             startActivity(intent)
