@@ -16,7 +16,7 @@ class AdminHome : AppCompatActivity() {
         val gotoprofile: Button = findViewById(R.id.AdminProfileBut)
         gotoprofile.setOnClickListener {
             // Navigate to AdminProfile activity and pass admin ID
-            val intent = Intent(this, AdminProfile::class.java).apply {
+            val intent = Intent(this@AdminHome, AdminProfile::class.java).apply {
                 putExtra("adminId", adminId)
             }
             startActivity(intent)
@@ -24,7 +24,7 @@ class AdminHome : AppCompatActivity() {
 
         val gotoViewaccount: Button = findViewById(R.id.Accountviewbut)
         gotoViewaccount.setOnClickListener {
-            val intent = Intent(this, ViewAccounts::class.java).apply {
+            val intent = Intent(this@AdminHome, ViewAccounts::class.java).apply {
                 putExtra("adminId", adminId)
             }
             startActivity(intent)
@@ -32,7 +32,7 @@ class AdminHome : AppCompatActivity() {
 
         val goshiftcreation: Button = findViewById(R.id.shiftassignbut)
         goshiftcreation.setOnClickListener {
-            val intent = Intent(this, ShiftAssignment::class.java).apply {
+            val intent = Intent(this@AdminHome, ShiftAssignment::class.java).apply {
                 putExtra("adminId", adminId)
             }
             startActivity(intent)
@@ -40,7 +40,7 @@ class AdminHome : AppCompatActivity() {
 
         val gotoTimetabel: Button = findViewById(R.id.timetableviewBut)
         gotoTimetabel.setOnClickListener {
-            val intent = Intent(this, AdminTimetable::class.java).apply {
+            val intent = Intent(this@AdminHome, AdminTimetable::class.java).apply {
                 putExtra("adminId", adminId)
             }
             startActivity(intent)
@@ -48,10 +48,19 @@ class AdminHome : AppCompatActivity() {
 
         val AdminLogout: Button = findViewById(R.id.AdmLogOutBut)
         AdminLogout.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java).apply {
+            val intent = Intent(this@AdminHome, MainActivity::class.java).apply {
                 putExtra("adminId", adminId)
             }
             startActivity(intent)
         }
+
+        val adminHolidayButton: Button = findViewById(R.id.holidayBut)
+        adminHolidayButton.setOnClickListener {
+            val intent = Intent(this@AdminHome, AdminHoliday::class.java).apply {
+                putExtra("adminId", adminId)
+            }
+            startActivity(intent)
+        }
+
     }
 }
