@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
@@ -23,6 +25,7 @@ class Owner_Login : AppCompatActivity() {
     private lateinit var usernameEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
+    private lateinit var passwordMask: Switch
 
     // Shared Preferences
     private lateinit var sharedPreferences: SharedPreferences
@@ -39,6 +42,18 @@ class Owner_Login : AppCompatActivity() {
         OwnerLoginbut.setOnClickListener {
             val intent = Intent(this, OwnerHome::class.java)
             startActivity(intent)
+        }
+
+        passwordMask = findViewById(R.id.PassMask)
+
+        passwordMask.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Show password
+                passwordEditText.transformationMethod = null
+            } else {
+                // Hide password (mask)
+                passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
         }
 
         database = FirebaseDatabase.getInstance()
