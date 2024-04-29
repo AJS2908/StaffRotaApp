@@ -66,8 +66,8 @@ class Holiday : AppCompatActivity() {
                 val requestsList = mutableListOf<String>() // List to hold employee information
                 for (requestsSnapshot in snapshot.children) {
                     val requests = requestsSnapshot.getValue(HolidayHelper::class.java)
-                    if (requests != null) {
-                        val requestsInfo = "${requests.employeeID}, Start: ${requests.startDate}, End: ${requests.endDate}"
+                    if (requests != null && requests.employeeID == employeeId) { // Check if the request is for the handled employee
+                        val requestsInfo = "${requests.holidayID}, Start: ${requests.startDate}, End: ${requests.endDate}"
                         requestsList.add(requestsInfo)
                         fetchConHol(employeeId)
                     }
@@ -75,6 +75,7 @@ class Holiday : AppCompatActivity() {
                 val adapter = ArrayAdapter<String>(this@Holiday, android.R.layout.simple_list_item_1, requestsList)
                 findViewById<ListView>(R.id.yourRequestsList).adapter = adapter
             }
+
             override fun onCancelled(error: DatabaseError) {
                 // Handles database error
                 Log.e("fetchRequests", "Error fetching Requests: ${error.message}", error.toException())
@@ -90,8 +91,8 @@ class Holiday : AppCompatActivity() {
                 val confirmedList = mutableListOf<String>() // List to hold employee information
                 for (confirmedSnapshot in snapshot.children) {
                     val confirmed = confirmedSnapshot.getValue(HolidayHelper::class.java)
-                    if (confirmed != null) {
-                        val requestsInfo = "${confirmed.employeeID}, Start: ${confirmed.startDate}, End: ${confirmed.endDate}"
+                    if (confirmed != null && confirmed.employeeID == employeeId) {
+                        val requestsInfo = "${confirmed.holidayID}, Start: ${confirmed.startDate}, End: ${confirmed.endDate}"
                         confirmedList.add(requestsInfo)
                     }
                 }

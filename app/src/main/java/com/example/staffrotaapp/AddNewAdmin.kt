@@ -132,24 +132,60 @@ class AddNewAdmin : AppCompatActivity() {
             }
     }
 
-    private fun generateAdminId(ownerAcc: Boolean) {  // Accept ownerAcc as a parameter
-        reference.orderByChild("adminId").limitToLast(1).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var maxId = 0
-                for (adminSnapshot in snapshot.children) {
-                    val admin = adminSnapshot.getValue(Admin::class.java)
-                    val adminId = admin?.adminId ?: 0
-                    if (adminId > maxId) {
-                        maxId = adminId
-                    }
+    private fun generateAdminId(ownerAcc: Boolean) {
+        val usernameInput = username.text.toString()
+        val emailInput = email.text.toString()
+
+        // Check for existing username
+        reference.orderByChild("username").equalTo(usernameInput).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(usernameSnapshot: DataSnapshot) {
+                if (usernameSnapshot.exists()) {
+                    // Username already exists
+                    username.error = "Username already taken"
+                } else {
+                    // Username is unique, check for email
+                    reference.orderByChild("email").equalTo(emailInput).addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(emailSnapshot: DataSnapshot) {
+                            if (emailSnapshot.exists()) {
+                                // Email already exists
+                                email.error = "Email already taken"
+                            } else {
+                                // Email is also unique, proceed to create admin
+                                reference.orderByChild("adminId").limitToLast(1).addListenerForSingleValueEvent(object : ValueEventListener {
+                                    override fun onDataChange(snapshot: DataSnapshot) {
+                                        var maxId = 0
+                                        for (adminSnapshot in snapshot.children) {
+                                            val admin = adminSnapshot.getValue(Admin::class.java)
+                                            val adminId = admin?.adminId ?: 0
+                                            if (adminId > maxId) {
+                                                maxId = adminId
+                                            }
+                                        }
+                                        val newId = maxId + 1
+                                        createNewAdmin(
+                                            usernameInput,
+                                            emailInput,
+                                            password.text.toString(),
+                                            firstName.text.toString(),
+                                            lastName.text.toString(),
+                                            nINumber.text.toString(),
+                                            ownerAcc,
+                                            newId
+                                        )
+                                    }
+
+                                    override fun onCancelled(error: DatabaseError) {
+                                        println("Error: ${error.message}")
+                                    }
+                                })
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            println("Error: ${error.message}")
+                        }
+                    })
                 }
-                val newId = maxId + 1
-                createNewAdmin(
-                    username.text.toString(), email.text.toString(), password.text.toString(),
-                    firstName.text.toString(), lastName.text.toString(), nINumber.text.toString(),
-                    ownerAcc,  // Pass ownerAcc to createNewAdmin
-                    newId
-                )
             }
 
             override fun onCancelled(error: DatabaseError) {

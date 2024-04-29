@@ -34,6 +34,8 @@ class HomeScreen : AppCompatActivity() {
             startActivity(intent)
         }
 
+        auth = FirebaseAuth.getInstance()
+
         val logoutButton: Button = findViewById(R.id.LogoutBut)
         logoutButton.setOnClickListener {
             // Sign out the user
