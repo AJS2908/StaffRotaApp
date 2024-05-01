@@ -7,6 +7,54 @@
     android:background="#446899"
     tools:context=".Profile">
 
+    <TextView
+        android:id="@+id/viewIdnumber"
+        android:layout_width="355dp"
+        android:layout_height="73dp"
+        android:background="#DFDFDF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.604" />
+
+    <TextView
+        android:id="@+id/viewNinumber"
+        android:layout_width="355dp"
+        android:layout_height="73dp"
+        android:background="#DFDFDF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.349" />
+
+    <TextView
+        android:id="@+id/viewEmail"
+        android:layout_width="355dp"
+        android:layout_height="73dp"
+        android:background="#DFDFDF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.475" />
+
+    <TextView
+        android:id="@+id/viewfName"
+        android:layout_width="355dp"
+        android:layout_height="73dp"
+        android:background="#DFDFDF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.224" />
+
     <Button
         android:id="@+id/button2"
         style="@style/Widget.AppCompat.Button"
@@ -26,10 +74,11 @@
         android:id="@+id/viewUsername"
         android:layout_width="355dp"
         android:layout_height="73dp"
+        android:background="#DFDFDF"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.106" />
+        app:layout_constraintVertical_bias="0.098" />
 </androidx.constraintlayout.widget.ConstraintLayout>

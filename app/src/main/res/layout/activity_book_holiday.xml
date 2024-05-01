@@ -34,11 +34,11 @@
         app:layout_constraintVertical_bias="0.083" />
 
     <Button
-        android:id="@+id/holidayRetBut"
+        android:id="@+id/bookHolidayRetBut"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:text="Holiday"
+        android:text="Book Holiday"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -50,6 +50,7 @@
         android:id="@+id/hEnd"
         android:layout_width="0dp"
         android:layout_height="262dp"
+        android:background="#F1F1F1"
         android:minDate="01/01/2024"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,6 +63,7 @@
         android:id="@+id/hStart"
         android:layout_width="0dp"
         android:layout_height="262dp"
+        android:background="#F1F1F1"
         android:minDate="01/01/2024"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

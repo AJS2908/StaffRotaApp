@@ -38,6 +38,12 @@ class BookHoliday : AppCompatActivity() {
         endDateCalendarView = findViewById(R.id.hEnd)
         confirmBooking = findViewById(R.id.conBook)
 
+        val returnbut: Button = findViewById(R.id.bookHolidayRetBut)
+        returnbut.setOnClickListener {
+            val intent = Intent(this, Holiday::class.java)
+            startActivity(intent)
+        }
+
         // Set listener for startDateCalendarView
         startDateCalendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             // Set the startDate property with the selected date
