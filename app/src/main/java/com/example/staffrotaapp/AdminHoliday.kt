@@ -23,103 +23,134 @@ class AdminHoliday : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set the layout for this activity
         setContentView(R.layout.activity_admin_holiday)
 
+        // Initialize adapters for request and confirmed holiday lists
         reqAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, mutableListOf())
         conAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, mutableListOf())
 
+        // Initialize UI elements
         val changeToBooked: Button = findViewById(R.id.upcomingHoliday)
         val changeToRequests: Button = findViewById(R.id.currentRequests)
-        val ShowBookedHoliday: ListView = findViewById(R.id.conHolList)
-        val ShowHolidayRequests: ListView = findViewById(R.id.holRequestsList)
+        val showBookedHoliday: ListView = findViewById(R.id.conHolList)
+        val showHolidayRequests: ListView = findViewById(R.id.holRequestsList)
 
-        // Set adapter for ShowHolidayRequests after initializing holAdapter
-        ShowHolidayRequests.adapter = reqAdapter
-        ShowBookedHoliday.adapter = conAdapter
+        // Set adapters for the holiday request and confirmed holiday lists
+        showHolidayRequests.adapter = reqAdapter
+        showBookedHoliday.adapter = conAdapter
 
+        // Set click listener for the button to switch to the confirmed holiday list
         changeToBooked.setOnClickListener {
-            ShowHolidayRequests.visibility = View.INVISIBLE
-            ShowBookedHoliday.visibility = View.VISIBLE
+            showHolidayRequests.visibility = View.INVISIBLE
+            showBookedHoliday.visibility = View.VISIBLE
         }
 
+        // Set click listener for the button to switch to the holiday request list
         changeToRequests.setOnClickListener {
-            ShowHolidayRequests.visibility = View.VISIBLE
-            ShowBookedHoliday.visibility = View.INVISIBLE
+            showHolidayRequests.visibility = View.VISIBLE
+            showBookedHoliday.visibility = View.INVISIBLE
         }
 
+        // Retrieve adminId passed from previous activity
         val adminId = intent.getStringExtra("adminId")
         val holidayRetBut: Button = findViewById(R.id.holidayRetBut)
         holidayRetBut.setOnClickListener {
+            // Create intent to navigate back to AdminHome activity
             val intent = Intent(this@AdminHoliday, AdminHome::class.java).apply {
                 putExtra("adminId", adminId)
             }
             startActivity(intent)
         }
 
+        // Fetch holiday requests and confirmed holidays from the database
         fetchRequests()
         fetchConHol()
     }
 
     private fun fetchRequests() {
+        // Reference to the "requests" node in the database
         val requestsReference = FirebaseDatabase.getInstance().getReference("Holiday/requests")
 
+        // Listen for a single data change event on the "requests" node
         requestsReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val requestsList = mutableListOf<String>() // List to hold employee information
+                // List to hold employee holiday request information
+                val requestsList = mutableListOf<String>()
+                // Iterate through each child node under "requests"
                 for (requestsSnapshot in snapshot.children) {
+                    // Retrieve holiday request data
                     val requests = requestsSnapshot.getValue(HolidayHelper::class.java)
                     if (requests != null) {
+                        // Construct a string representing holiday request info
                         val requestsInfo = "${requests.holidayID}: ${requests.employeeID}, Start: ${requests.startDate}, End: ${requests.endDate}"
+                        // Add the holiday request info to the list
                         requestsList.add(requestsInfo)
                     }
                 }
+                // Add all holiday request info to the request adapter
                 reqAdapter.addAll(requestsList)
+                // Set item click listener for long clicks on holiday requests
                 setItemClickListener()
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handles database error
+                // Handle database error
                 Log.e("fetchRequests", "Error fetching Requests: ${error.message}", error.toException())
             }
         })
     }
 
-
     private fun fetchConHol() {
+        // Reference to the "confirmed" node in the database
         val confirmedReference = FirebaseDatabase.getInstance().getReference("Holiday/confirmed")
 
+        // Listen for a single data change event on the "confirmed" node
         confirmedReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val confirmedList = mutableListOf<String>() // List to hold employee information
+                // List to hold confirmed holiday information
+                val confirmedList = mutableListOf<String>()
+                // Iterate through each child node under "confirmed"
                 for (confirmedSnapshot in snapshot.children) {
+                    // Retrieve confirmed holiday data
                     val confirmed = confirmedSnapshot.getValue(HolidayHelper::class.java)
                     if (confirmed != null) {
+                        // Construct a string representing confirmed holiday info
                         val confirmedInfo = "${confirmed.holidayID}: ${confirmed.employeeID}, Start: ${confirmed.startDate}, End: ${confirmed.endDate}"
+                        // Add the confirmed holiday info to the list
                         confirmedList.add(confirmedInfo)
                     }
                 }
+                // Add all confirmed holiday info to the confirmed adapter
                 conAdapter.addAll(confirmedList)
+                // Set item click listener for long clicks on confirmed holidays
                 setItemClickListener()
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handles database error
+                // Handle database error
                 Log.e("fetchConfirmed", "Error fetching Requests: ${error.message}", error.toException())
             }
         })
     }
 
     private fun setItemClickListener() {
+        // Reference to the ListView for holiday requests
         val ShowHolidayRequests: ListView = findViewById(R.id.holRequestsList)
+        // Set item long click listener for long clicks on holiday requests
         ShowHolidayRequests.setOnItemLongClickListener { _, _, position, _ ->
             if (position >= 0 && position < reqAdapter.count) {
+                // Get the holiday info at the clicked position
                 val holidayInfo = reqAdapter.getItem(position)
+                // Extract the holiday ID from the holiday info string
                 val holidayID = holidayInfo?.substringBefore(":")?.toIntOrNull()
+                // Call function to confirm the holiday with the extracted ID
                 confirmHoliday(holidayID)
             }
-            true
+            true // Indicate that the long click event is consumed
         }
     }
+
 
     private fun confirmHoliday(holidayID: Int?) {
         holidayID ?: return // Check if holidayID is null, if so, return early

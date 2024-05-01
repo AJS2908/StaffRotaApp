@@ -33,6 +33,7 @@ class EditAdminAccount : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set the layout for this activity
         setContentView(R.layout.activity_edit_admin_account)
 
         // Initialize Firebase Database
@@ -67,6 +68,7 @@ class EditAdminAccount : AppCompatActivity() {
         }
     }
 
+    // Function to fetch admin data from the database and autofill UI fields
     private fun fetchAdminData() {
         reference.child(adminId).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -89,6 +91,7 @@ class EditAdminAccount : AppCompatActivity() {
         })
     }
 
+    // Function to update the admin account in the database
     private fun updateAdminAccount() {
         val updatedUsername = usernameEditText.text.toString()
         val updatedEmail = emailEditText.text.toString()
@@ -123,6 +126,7 @@ class EditAdminAccount : AppCompatActivity() {
         finish()
     }
 
+    // Function to show the delete confirmation dialog
     private fun showDeleteConfirmationDialog() {
         AlertDialog.Builder(this)
             .setTitle("Delete Admin Account")
@@ -135,4 +139,5 @@ class EditAdminAccount : AppCompatActivity() {
             .setNegativeButton("No", null)
             .show()
     }
+
 }

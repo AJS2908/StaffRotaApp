@@ -30,13 +30,18 @@ class AdminTimetable : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set the layout for this activity
         setContentView(R.layout.activity_admin_timetable)
 
+        // Initialize UI elements
         calendarView = findViewById(R.id.DateShift)
         shiftsListView = findViewById(R.id.Shifts)
+
+        // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Timetable")
 
+        // Initialize the shifts adapter and set it to the shiftsListView
         shiftsAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, shiftsList)
         shiftsListView.adapter = shiftsAdapter
 
@@ -46,12 +51,14 @@ class AdminTimetable : AppCompatActivity() {
             val selectedItem = parent.getItemAtPosition(position) as? String
             // Extract shift ID from the selected item
             val shiftId = selectedItem?.substringBefore(":")
+            // Create intent to navigate to TimeTableEdit activity and pass shift ID
             val intent = Intent(this@AdminTimetable, TimeTableEdit::class.java).apply {
                 putExtra("shiftId", shiftId)
             }
             startActivity(intent)
         }
 
+        // Set listener for calendarView to fetch shifts for the selected date
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             // Create a LocalDate object with the selected date
             val selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
@@ -61,10 +68,13 @@ class AdminTimetable : AppCompatActivity() {
             fetchShiftsForDate(formattedDate)
         }
 
+        // Retrieve admin ID from intent extras
         val adminId = intent.getStringExtra("adminId")
 
-        val TimetableHome: Button = findViewById(R.id.timetablehomebut)
-        TimetableHome.setOnClickListener {
+        // Set click listener for the button to navigate to AdminHome activity
+        val timetableHomeButton: Button = findViewById(R.id.timetablehomebut)
+        timetableHomeButton.setOnClickListener {
+            // Create intent to navigate to AdminHome activity and pass admin ID
             val intent = Intent(this, AdminHome::class.java).apply {
                 putExtra("adminId", adminId)
             }
@@ -72,28 +82,34 @@ class AdminTimetable : AppCompatActivity() {
         }
     }
 
+    // Function to fetch shifts for a specific date
     private fun fetchShiftsForDate(date: String) {
         reference.orderByChild("shiftDate").equalTo(date).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                shiftsList.clear()
+                shiftsList.clear() // Clear existing shifts list
+                // Iterate through each shift data
                 for (shiftSnapshot in snapshot.children) {
                     val shiftId = shiftSnapshot.key // Get the shift ID
                     val shiftData = shiftSnapshot.getValue(TimeTableDC::class.java)
                     shiftData?.let {
+                        // Construct shift information string
                         val shiftInfo = "Employee: ${it.employeeData}, Start Time: ${it.startTime}, End Time: ${it.endTime}"
                         // Combine shift ID and shift information
                         shiftsList.add("$shiftId: $shiftInfo")
                     }
                 }
+                // Notify adapter of data changes
                 shiftsAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // Handle database error
                 Log.e("Timetable", "Error fetching shifts: ${error.message}")
             }
         })
     }
+
 
 }
 

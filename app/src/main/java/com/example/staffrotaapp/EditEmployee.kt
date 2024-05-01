@@ -35,6 +35,7 @@ class EditEmployee : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set the layout for this activity
         setContentView(R.layout.activity_edit_employee)
 
         // Initialize Firebase Authentication

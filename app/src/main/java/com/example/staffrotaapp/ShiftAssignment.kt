@@ -46,10 +46,13 @@ class ShiftAssignment : AppCompatActivity() {
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Employees")
+
+        // Initialize views
         dateCalendarView = findViewById(R.id.shiftDate)
         employeeRecyclerView = findViewById(R.id.employeeList)
         employeeRecyclerView.layoutManager = LinearLayoutManager(this)
 
+        // Set date change listener for the calendar view
         dateCalendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             // Set the selectedDate property with the selected date
             selectedDate = LocalDate.of(year, month + 1, dayOfMonth)
@@ -57,6 +60,7 @@ class ShiftAssignment : AppCompatActivity() {
             Log.d("shiftAssignment", "Selected date: $selectedDate")
         }
 
+        // Initialize the employee adapter for the recycler view
         employeeAdapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
                 val itemView = LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_1, parent, false)
@@ -76,8 +80,10 @@ class ShiftAssignment : AppCompatActivity() {
             override fun getItemCount(): Int = filteredEmployeesList.size
         }
 
+        // Set adapter for the recycler view
         employeeRecyclerView.adapter = employeeAdapter
 
+        // Set search query listener for the search view
         val searchBar: SearchView = findViewById(R.id.searchEmployee)
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -86,11 +92,13 @@ class ShiftAssignment : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText.isNullOrEmpty()) {
+                    // If query is empty, show all employees
                     filteredEmployeesList.clear()
                     filteredEmployeesList.addAll(originalEmployeesList)
                     employeeAdapter.notifyDataSetChanged()
                     employeeRecyclerView.visibility = View.INVISIBLE
                 } else {
+                    // Filter employees based on the query
                     filterEmployees(newText)
                     employeeRecyclerView.visibility = View.VISIBLE
                 }
@@ -98,18 +106,20 @@ class ShiftAssignment : AppCompatActivity() {
             }
         })
 
-        //carries the current user to the new window
+        // Retrieve the adminId passed from the previous activity
         val adminId = intent.getStringExtra("adminId")
 
+        // Set click listener for the return button
         val shiftReturnButton: Button = findViewById(R.id.shiftRetBut)
         shiftReturnButton.setOnClickListener {
+            // Navigate back to AdminHome activity
             val intent = Intent(this, AdminHome::class.java).apply {
                 putExtra("adminId", adminId)
             }
             startActivity(intent)
         }
 
-        // Save shift button click listener
+        // Set click listener for the save shift button
         val saveShiftButton: Button = findViewById(R.id.saveShift)
         saveShiftButton.setOnClickListener {
             val startTimeText = findViewById<TextView>(R.id.startTime).text.toString()
@@ -128,68 +138,95 @@ class ShiftAssignment : AppCompatActivity() {
                     }
                 }
             } else {
+                // Log error if end time is not after start time
                 Log.e("ShiftAssignment", "End time must be after start time")
             }
         }
 
+        // Fetch employees from the database
         fetchEmployees()
     }
 
     private fun fetchEmployees() {
+        // Retrieve all employees from the database
         reference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                // Clear the original list of employees
                 originalEmployeesList.clear()
+                // Iterate through the snapshot to retrieve employee details
                 for (employeeSnapshot in snapshot.children) {
+                    // Get employee object from the snapshot
                     val employee = employeeSnapshot.getValue(Employee::class.java)
                     employee?.let {
+                        // Create a string containing employee information
                         val employeeInfo = "${it.employeeId}: ${it.firstName} ${it.lastName}, ${it.email}"
+                        // Add employee information to the original list
                         originalEmployeesList.add(employeeInfo)
                     }
                 }
+                // Clear the filtered list and add all items from the original list
                 filteredEmployeesList.clear()
                 filteredEmployeesList.addAll(originalEmployeesList)
+                // Notify the adapter that the dataset has changed
                 employeeAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // Log error message if fetching employees is cancelled
                 Log.e("ShiftAssignment", "Error fetching employees: ${error.message}")
             }
         })
     }
 
     private fun filterEmployees(query: String) {
+        // Clear the filtered list
         filteredEmployeesList.clear()
+        // Iterate through the original list to filter employees based on the query
         for (employeeInfo in originalEmployeesList) {
             if (employeeInfo.contains(query, ignoreCase = true)) {
+                // Add the employee to the filtered list if it matches the query
                 filteredEmployeesList.add(employeeInfo)
             }
         }
+        // Notify the adapter that the dataset has changed
         employeeAdapter.notifyDataSetChanged()
     }
 
+
     private fun generateShiftId(startTime: LocalTime, endTime: LocalTime, selectedDate: LocalDate) {
+        // Retrieve employee data from TextView
         val employeeData = findViewById<TextView>(R.id.employeeAssigned).text.toString()
+        // Reference to the "Timetable" node in the Firebase Database
         reference = database.getReference("Timetable")
+        // Retrieve the last shift ID from the database
         reference.orderByChild("shiftID").limitToLast(1).addListenerForSingleValueEvent(object : ValueEventListener {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onDataChange(snapshot: DataSnapshot) {
                 var maxId: Long = 0L // Initialize maxId as Long
                 for (shiftSnapshot in snapshot.children) {
+                    // Retrieve shift ID as String from the database
                     val shiftIdString = shiftSnapshot.child("shiftID").getValue(String::class.java)
+                    // Convert shift ID to Long
                     val shiftId = shiftIdString?.toLongOrNull()
                     shiftId?.let {
+                        // Update maxId if the current shift ID is greater
                         if (it > maxId) {
                             maxId = it
                         }
                     }
                 }
-                reference = database.getReference("Timetable")
+                // Create a new shift ID by incrementing the maxId
                 val newId: String = (maxId + 1L).toString()
+                // Calculate shift length in hours
                 val shiftLength = Duration.between(startTime, endTime).toMinutes().toDouble() / 60.0
-                val startTimeString = startTime.format(DateTimeFormatter.ofPattern("HH:mm")) // Format startTime
-                val endTimeString = endTime.format(DateTimeFormatter.ofPattern("HH:mm")) // Format endTime
-                val selectedDateString = TimeTableDC.formatLocalDate(selectedDate) // Format selected date
+                // Format startTime as HH:mm
+                val startTimeString = startTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+                // Format endTime as HH:mm
+                val endTimeString = endTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+                // Format selected date using custom function
+                val selectedDateString = TimeTableDC.formatLocalDate(selectedDate)
                 selectedEmployeeId?.let { employeeId ->
+                    // Create TimeTableDC object for the new shift
                     val shift = TimeTableDC(
                         shiftID = newId,
                         shiftDate = selectedDateString,
@@ -198,22 +235,26 @@ class ShiftAssignment : AppCompatActivity() {
                         shiftLength = shiftLength,
                         employeeData = employeeData
                     )
+                    // Save the new shift to the database
                     saveShiftToDatabase(shift)
                     Log.d("ShiftAssignment", "Shift ID generated and saved to database")
-
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
+                // Log error message if generating shift ID is canceled
                 Log.e("ShiftAssignment", "Error generating shift ID: ${error.message}")
             }
         })
     }
+
     private fun saveShiftToDatabase(shift: TimeTableDC) {
+        // Save the shift to the database under its shift ID
         reference.child(shift.shiftID).setValue(shift)
             .addOnSuccessListener {
+                // Log success message if shift is saved successfully
                 Log.d("ShiftAssignment", "Shift saved successfully")
-                // Navigate to AdminHome activity
+                // Navigate to ShiftAssignment activity
                 val adminId = intent.getStringExtra("adminId")
                 val intent = Intent(this, ShiftAssignment::class.java).apply {
                     putExtra("adminId", adminId)
@@ -221,9 +262,11 @@ class ShiftAssignment : AppCompatActivity() {
                 startActivity(intent)
             }
             .addOnFailureListener { e ->
+                // Log error message if saving the shift fails
                 Log.e("ShiftAssignment", "Error saving shift: ${e.message}", e)
                 // Optionally, you can print the stack trace for more detailed error information
                 e.printStackTrace()
             }
     }
+
 }

@@ -33,22 +33,31 @@ class AdminLogin : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set the layout for this activity
         setContentView(R.layout.activity_admin_login)
 
-        val returnbut: Button = findViewById(R.id.returnbut)
-        returnbut.setOnClickListener {
+        // Initialize UI elements
+        val returnButton: Button = findViewById(R.id.returnbut)
+        val gotoOwnerButton: Button = findViewById(R.id.gotoownerlogin)
+        passwordMask = findViewById(R.id.PassMask)
+        usernameEditText = findViewById(R.id.username)
+        passwordEditText = findViewById(R.id.password)
+        loginButton = findViewById(R.id.adminLoginBut)
+
+        // Set click listener for the return button
+        returnButton.setOnClickListener {
+            // Navigate to MainActivity when return button is clicked
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-        val gotoOwner: Button = findViewById(R.id.gotoownerlogin)
-        gotoOwner.setOnClickListener {
+        // Set click listener for the button to navigate to Owner_Login activity
+        gotoOwnerButton.setOnClickListener {
             val intent = Intent(this, Owner_Login::class.java)
             startActivity(intent)
         }
 
-        passwordMask = findViewById(R.id.PassMask)
-
+        // Set password visibility toggle listener
         passwordMask.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // Show password
@@ -59,27 +68,25 @@ class AdminLogin : AppCompatActivity() {
             }
         }
 
-        // Initialize Firebase Database
+        // Initialize Firebase Database reference
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Admins") // Reference the "Admins" node
 
         // Initialize Shared Preferences
         sharedPreferences = getSharedPreferences("AdminPrefs", Context.MODE_PRIVATE)
 
-        // Initialize views
-        usernameEditText = findViewById(R.id.username)
-        passwordEditText = findViewById(R.id.password)
-        loginButton = findViewById(R.id.adminLoginBut)
-
         // Set click listener for loginButton
         loginButton.setOnClickListener {
+            // Get username and password from input fields
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
 
             // Validate input fields
             if (username.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT)
+                    .show()
             } else {
+                // Authenticate admin
                 authenticateAdmin(username, password)
             }
         }
@@ -91,9 +98,11 @@ class AdminLogin : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var isAdminAuthenticated = false
                 var adminId = ""
+                // Iterate through admin nodes
                 for (adminSnapshot in snapshot.children) {
                     val admin = adminSnapshot.getValue(Admin::class.java)
                     if (admin != null && admin.username == username && admin.password == password) {
+                        // Admin authentication successful
                         isAdminAuthenticated = true
                         adminId = adminSnapshot.key ?: ""
                         break
@@ -102,15 +111,19 @@ class AdminLogin : AppCompatActivity() {
                 if (isAdminAuthenticated) {
                     // Save admin ID to SharedPreferences
                     saveAdminId(adminId)
-                    // Authentication successful, proceed to next activity
+                    // Authentication successful, proceed to AdminHome activity
                     val intent = Intent(this@AdminLogin, AdminHome::class.java)
-                    // Pass admin ID to the next activity
+                    // Pass admin ID to AdminHome activity
                     intent.putExtra("adminId", adminId)
                     startActivity(intent)
                     finish()
                 } else {
                     // Authentication failed
-                    Toast.makeText(this@AdminLogin, "Invalid username or password", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@AdminLogin,
+                        "Invalid username or password",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

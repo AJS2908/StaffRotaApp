@@ -30,17 +30,23 @@ class BookHoliday : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Set the layout for this activity
         setContentView(R.layout.activity_book_holiday)
+
+        // Initialize UI elements
         startDateCalendarView = findViewById(R.id.hStart)
         endDateCalendarView = findViewById(R.id.hEnd)
         confirmBooking = findViewById(R.id.conBook)
 
+        // Set listener for startDateCalendarView
         startDateCalendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             // Set the startDate property with the selected date
             startDate = LocalDate.of(year, month + 1, dayOfMonth)
             // Log the selected start date for debugging
             Log.d("shiftAssignment", "Selected date: $startDate")
         }
+
+        // Set listener for endDateCalendarView
         endDateCalendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             // Set the endDate property with the selected date
             endDate = LocalDate.of(year, month + 1, dayOfMonth)
@@ -48,15 +54,15 @@ class BookHoliday : AppCompatActivity() {
             Log.d("shiftAssignment", "Selected date: $endDate")
         }
 
-
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Holiday/requests") // Reference to the 'requests' node under 'Holiday'
 
+        // Set click listener for confirmBooking button
         confirmBooking.setOnClickListener {
+            // Get employee details for the current user and save holiday to database
             getEmployeeDetailsForCurrentUser(startDate, endDate)
         }
-
     }
 
     fun generateHolidayId(startDate: LocalDate, endDate: LocalDate, employeeId: Int, employeeData: String) {
@@ -95,6 +101,7 @@ class BookHoliday : AppCompatActivity() {
     }
 
     fun getEmployeeDetailsForCurrentUser(startDate: LocalDate?, endDate: LocalDate?) {
+        // Get the current user
         val auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser
 
@@ -104,6 +111,7 @@ class BookHoliday : AppCompatActivity() {
                 val database = FirebaseDatabase.getInstance()
                 val reference = database.getReference("Employees")
 
+                // Query employee details using user's email
                 reference.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object :
                     ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {

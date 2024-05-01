@@ -29,23 +29,27 @@ class Owner_Login : AppCompatActivity() {
 
     // Shared Preferences
     private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_owner_login)
 
+        // Button to return to the MainActivity
         val returnbutton: Button = findViewById(R.id.returnbutton)
         returnbutton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
+        // Button to initiate owner login
         val OwnerLoginbut: Button = findViewById(R.id.OwnerLogin)
         OwnerLoginbut.setOnClickListener {
             val intent = Intent(this, OwnerHome::class.java)
             startActivity(intent)
         }
 
+        // Switch for toggling password visibility
         passwordMask = findViewById(R.id.PassMask)
-
         passwordMask.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 // Show password
@@ -56,6 +60,7 @@ class Owner_Login : AppCompatActivity() {
             }
         }
 
+        // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Admins") // Reference the "Admins" node
 

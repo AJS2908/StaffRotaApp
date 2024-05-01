@@ -34,34 +34,48 @@ class PasswordReset : AppCompatActivity() {
 
         // Set click listener for resetButton and test user input and communicate with user what the issue is
         resetButton.setOnClickListener {
+            // Retrieve email input from EditText and trim any leading or trailing whitespace
             val email = emailEditText.text.toString().trim()
 
+            // Check if email is empty
             if (email.isEmpty()) {
+                // Display a toast message indicating that the user should enter their email address
                 Toast.makeText(this, "Please enter your email address", Toast.LENGTH_SHORT).show()
             } else {
+                // If email is provided, proceed with sending password reset email
                 sendPasswordResetEmail(email)
             }
         }
 
-        // Set click listener for resetPasswordBack button and redirect user back to Login Screen
+// Set click listener for resetPasswordBack button and redirect user back to Login Screen
         resetPasswordBack.setOnClickListener {
+            // Create an intent to navigate back to the LoginScreen activity
             val intent = Intent(this, LoginScreen::class.java)
+            // Start the activity to go back to the login screen
             startActivity(intent)
         }
     }
 
-    /**
-     * Sends a password reset email to the specified email address.
-     * @param email The email address to which the password reset email will be sent.
-     */
-    private fun sendPasswordResetEmail(email: String) {
-        auth.sendPasswordResetEmail(email)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Password reset email sent to $email", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Failed to send password reset email: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+        // Function to send password reset email to the provided email address
+        private fun sendPasswordResetEmail(email: String) {
+            // Send password reset email using FirebaseAuth
+            auth.sendPasswordResetEmail(email)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        // If sending the password reset email is successful, display a success message to the user
+                        Toast.makeText(
+                            this,
+                            "Password reset email sent to $email",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        // If sending the password reset email fails, display an error message to the user
+                        Toast.makeText(
+                            this,
+                            "Failed to send password reset email: ${task.exception?.message}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
-            }
-    }
+        }
 }
