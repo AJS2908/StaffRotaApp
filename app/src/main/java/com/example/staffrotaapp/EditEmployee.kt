@@ -68,7 +68,7 @@ class EditEmployee : AppCompatActivity() {
                     emailEditText.setText(employee.email)
                     firstNameEditText.setText(employee.firstName)
                     lastNameEditText.setText(employee.lastName)
-                    nINumberEditText.setText(employee.nINumber)
+                    nINumberEditText.setText(employee.ninumber)
                 }
             }
 
