@@ -33,6 +33,9 @@ class AdminTimetable : AppCompatActivity() {
         // Set the layout for this activity
         setContentView(R.layout.activity_admin_timetable)
 
+        // Retrieve admin ID from intent extras
+        val addminId = intent.getStringExtra("addminId")
+
         // Initialize UI elements
         calendarView = findViewById(R.id.DateShift)
         shiftsListView = findViewById(R.id.Shifts)
@@ -54,6 +57,7 @@ class AdminTimetable : AppCompatActivity() {
             // Create intent to navigate to TimeTableEdit activity and pass shift ID
             val intent = Intent(this@AdminTimetable, TimeTableEdit::class.java).apply {
                 putExtra("shiftId", shiftId)
+                putExtra("addminId", addminId)
             }
             startActivity(intent)
         }
@@ -68,15 +72,12 @@ class AdminTimetable : AppCompatActivity() {
             fetchShiftsForDate(formattedDate)
         }
 
-        // Retrieve admin ID from intent extras
-        val adminId = intent.getStringExtra("adminId")
-
         // Set click listener for the button to navigate to AdminHome activity
         val timetableHomeButton: Button = findViewById(R.id.timetablehomebut)
         timetableHomeButton.setOnClickListener {
             // Create intent to navigate to AdminHome activity and pass admin ID
             val intent = Intent(this, AdminHome::class.java).apply {
-                putExtra("adminId", adminId)
+                putExtra("addminId", addminId)
             }
             startActivity(intent)
         }

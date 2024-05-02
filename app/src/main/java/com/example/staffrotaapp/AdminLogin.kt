@@ -137,7 +137,7 @@ class AdminLogin : AppCompatActivity() {
     // Function to save admin ID to SharedPreferences
     private fun saveAdminId(adminId: String) {
         val editor = sharedPreferences.edit()
-        editor.putString("adminId", adminId)
+        editor.putString("addminId", adminId)
         editor.apply()
     }
 }

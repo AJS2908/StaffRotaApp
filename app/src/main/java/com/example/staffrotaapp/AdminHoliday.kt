@@ -53,12 +53,12 @@ class AdminHoliday : AppCompatActivity() {
         }
 
         // Retrieve adminId passed from previous activity
-        val adminId = intent.getStringExtra("adminId")
+        val addminId = intent.getStringExtra("addminId")
         val holidayRetBut: Button = findViewById(R.id.holidayRetBut)
         holidayRetBut.setOnClickListener {
             // Create intent to navigate back to AdminHome activity
             val intent = Intent(this@AdminHoliday, AdminHome::class.java).apply {
-                putExtra("adminId", adminId)
+                putExtra("addminId", addminId)
             }
             startActivity(intent)
         }

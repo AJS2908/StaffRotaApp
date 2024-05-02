@@ -45,14 +45,14 @@ class CreateNewAccount : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         // Fetch admin id from intent extras
-        val adminId = intent.getStringExtra("adminId")
+        val addminId = intent.getStringExtra("addminId")
 
         // Initialize UI elements
         val createAccountsRet: Button = findViewById(R.id.createAccountsReturn)
         createAccountsRet.setOnClickListener {
             // Return to AdminHome activity
             val intent = Intent(this, AdminHome::class.java).apply {
-                putExtra("adminId", adminId)
+                putExtra("addminId", addminId)
             }
             startActivity(intent)
         }

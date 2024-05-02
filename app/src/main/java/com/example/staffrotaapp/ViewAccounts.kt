@@ -38,8 +38,9 @@ class ViewAccounts : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_accounts)
 
+
         // Retrieve admin ID from intent extras
-        val adminId = intent.getStringExtra("adminId")
+        val addminId = intent.getStringExtra("addminId")
 
         // Initialize Firebase authentication
         auth = FirebaseAuth.getInstance()
@@ -62,7 +63,8 @@ class ViewAccounts : AppCompatActivity() {
         val accountViewReturn: Button = findViewById(R.id.viewAccountsReturn)
         accountViewReturn.setOnClickListener {
             val intent = Intent(this, AdminHome::class.java).apply {
-                putExtra("adminId", adminId)
+                intent.putExtra("addminId", addminId)
+
             }
             startActivity(intent)
         }
@@ -70,7 +72,7 @@ class ViewAccounts : AppCompatActivity() {
         val createAccount: Button = findViewById(R.id.createAccount)
         createAccount.setOnClickListener {
             val intent = Intent(this, CreateNewAccount::class.java).apply {
-                putExtra("adminId", adminId)
+                intent.putExtra("addminId", addminId)
             }
             startActivity(intent)
         }

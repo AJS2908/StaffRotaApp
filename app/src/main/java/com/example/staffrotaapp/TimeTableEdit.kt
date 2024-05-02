@@ -43,7 +43,7 @@ class TimeTableEdit : AppCompatActivity() {
         reference = database.getReference("Timetable")
 
         // Retrieve shift ID passed from the previous activity
-        shiftId = intent.getStringExtra("shiftId") ?: ""
+        val addminId = intent.getStringExtra("addminId")
 
         // Debugging statement to check the received shift ID
         Log.d("TimeTableEdit", "Shift ID received: $shiftId")
@@ -65,6 +65,7 @@ class TimeTableEdit : AppCompatActivity() {
         val editShifRetButton: Button = findViewById(R.id.editShiftRetBut)
         editShifRetButton.setOnClickListener {
             val intent = Intent(this, AdminTimetable::class.java)
+            intent.putExtra("addminId", addminId)
             startActivity(intent)
         }
 

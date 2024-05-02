@@ -44,7 +44,7 @@ class AdminProfile : AppCompatActivity() {
         nINumberTextView = findViewById(R.id.nINumberTextView)
 
         // Fetch and display admin profile
-        val adminId = intent.getStringExtra("adminId")
+        val adminId = intent.getStringExtra("addminId")
         adminId?.let { fetchAdminProfile(it) }
 
         // Set click listener for the button to navigate to AdminHome activity
@@ -52,7 +52,7 @@ class AdminProfile : AppCompatActivity() {
         adminProfileHomeButton.setOnClickListener {
             // Create intent to navigate to AdminHome activity and pass admin ID
             val intent = Intent(this, AdminHome::class.java).apply {
-                putExtra("adminId", adminId)
+                putExtra("addminId", adminId)
             }
             startActivity(intent)
         }

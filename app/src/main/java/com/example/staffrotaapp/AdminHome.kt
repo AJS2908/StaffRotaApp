@@ -12,14 +12,14 @@ class AdminHome : AppCompatActivity() {
         setContentView(R.layout.activity_admin_home)
 
         // Retrieve admin ID from intent extras
-        val adminId = intent.getStringExtra("adminId")
+        val addminId = intent.getStringExtra("addminId")
 
         // Set click listener for the button to navigate to AdminProfile activity
         val gotoProfile: Button = findViewById(R.id.AdminProfileBut)
         gotoProfile.setOnClickListener {
             // Create intent to navigate to AdminProfile activity and pass admin ID
             val intent = Intent(this@AdminHome, AdminProfile::class.java).apply {
-                putExtra("adminId", adminId)
+                putExtra("addminId", addminId)
             }
             startActivity(intent)
         }
@@ -29,7 +29,7 @@ class AdminHome : AppCompatActivity() {
         gotoViewAccount.setOnClickListener {
             // Create intent to navigate to ViewAccounts activity and pass admin ID
             val intent = Intent(this@AdminHome, ViewAccounts::class.java).apply {
-                putExtra("adminId", adminId)
+                putExtra("addminId", addminId)
             }
             startActivity(intent)
         }
@@ -39,7 +39,7 @@ class AdminHome : AppCompatActivity() {
         goShiftCreation.setOnClickListener {
             // Create intent to navigate to ShiftAssignment activity and pass admin ID
             val intent = Intent(this@AdminHome, ShiftAssignment::class.java).apply {
-                putExtra("adminId", adminId)
+                putExtra("addminId", addminId)
             }
             startActivity(intent)
         }
@@ -49,7 +49,7 @@ class AdminHome : AppCompatActivity() {
         gotoTimetable.setOnClickListener {
             // Create intent to navigate to AdminTimetable activity and pass admin ID
             val intent = Intent(this@AdminHome, AdminTimetable::class.java).apply {
-                putExtra("adminId", adminId)
+                putExtra("addminId", addminId)
             }
             startActivity(intent)
         }
@@ -59,7 +59,7 @@ class AdminHome : AppCompatActivity() {
         adminLogout.setOnClickListener {
             // Create intent to navigate to MainActivity (logout) and pass admin ID
             val intent = Intent(this@AdminHome, MainActivity::class.java).apply {
-                putExtra("adminId", adminId)
+                putExtra("addminId", addminId)
             }
             startActivity(intent)
         }
@@ -69,7 +69,7 @@ class AdminHome : AppCompatActivity() {
         adminHolidayButton.setOnClickListener {
             // Create intent to navigate to AdminHoliday activity and pass admin ID
             val intent = Intent(this@AdminHome, AdminHoliday::class.java).apply {
-                putExtra("adminId", adminId)
+                putExtra("addminId", addminId)
             }
             startActivity(intent)
         }

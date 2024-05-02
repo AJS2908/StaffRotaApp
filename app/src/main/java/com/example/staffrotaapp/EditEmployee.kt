@@ -41,12 +41,23 @@ class EditEmployee : AppCompatActivity() {
         // Initialize Firebase Authentication
         auth = FirebaseAuth.getInstance()
 
+        val addminId = intent.getStringExtra("addminId")
+
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
         reference = database.getReference("Employees")
 
         // Retrieve employee ID passed from the intent extras
         val employeeId = intent.getIntExtra("employeeId", -1)
+
+        val editHomeButton: Button = findViewById(R.id.editAccountsReturn)
+        editHomeButton.setOnClickListener {
+            // Create intent to navigate to AdminHome activity and pass admin ID
+            val intent = Intent(this, HomeScreen::class.java).apply {
+                putExtra("addminId", addminId)
+            }
+            startActivity(intent)
+        }
 
         // Initialize views
         usernameEditText = findViewById(R.id.username)
