@@ -1,6 +1,7 @@
 package com.example.staffrotaapp
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -42,6 +43,14 @@ class EditAdminAccount : AppCompatActivity() {
 
         // Get adminId passed from previous activity
         adminId = intent.getStringExtra("adminId") ?: ""
+        val addminId = intent.getStringExtra("addminId")
+
+        val EditAdminRetBut: Button = findViewById(R.id.edtAdmProfileRetBut)
+        EditAdminRetBut.setOnClickListener {
+            val intent = Intent(this, OwnerHome::class.java)
+            intent.putExtra("addminId", addminId)
+            startActivity(intent)
+        }
 
         // Initialize UI elements
         usernameEditText = findViewById(R.id.username)

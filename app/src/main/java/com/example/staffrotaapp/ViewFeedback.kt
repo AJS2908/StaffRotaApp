@@ -25,6 +25,7 @@ class ViewFeedback : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_feedback)
+        val addminId = intent.getStringExtra("addminId")
 
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
@@ -40,8 +41,10 @@ class ViewFeedback : AppCompatActivity() {
         val ViewFeedbackRetBut: Button = findViewById(R.id.ViewFeedbackRet)
         ViewFeedbackRetBut.setOnClickListener {
             val intent = Intent(this, OwnerHome::class.java)
+            intent.putExtra("addminId", addminId)
             startActivity(intent)
         }
+
 
         // Set up RecyclerView Adapter
         feedbackAdapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

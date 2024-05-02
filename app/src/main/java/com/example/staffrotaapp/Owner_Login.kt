@@ -105,7 +105,7 @@ class Owner_Login : AppCompatActivity() {
                     // Authentication successful, proceed to next activity
                     val intent = Intent(this@Owner_Login, OwnerHome::class.java)
                     // Pass admin ID to the next activity
-                    intent.putExtra("adminId", adminId)
+                    intent.putExtra("addminId", adminId)
                     startActivity(intent)
                     finish()
                 } else {

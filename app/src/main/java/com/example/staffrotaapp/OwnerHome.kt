@@ -9,11 +9,14 @@ class OwnerHome : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_owner_home)
+        val addminId = intent.getStringExtra("addminId")
+
 
         // Button to view admin accounts
         val Viewadminaccountbut: Button = findViewById(R.id.viewAdminAccountBut)
         Viewadminaccountbut.setOnClickListener {
             val intent = Intent(this, ViewAdminAccounts::class.java)
+            intent.putExtra("addminId", addminId)
             startActivity(intent)
         }
 
@@ -21,6 +24,7 @@ class OwnerHome : AppCompatActivity() {
         val ViewOwnerProfbut: Button = findViewById(R.id.ownerViewProfile)
         ViewOwnerProfbut.setOnClickListener {
             val intent = Intent(this, OwnerProfile::class.java)
+            intent.putExtra("addminId", addminId)
             startActivity(intent)
         }
 
@@ -35,6 +39,7 @@ class OwnerHome : AppCompatActivity() {
         val OwnerFeedbackbut: Button = findViewById(R.id.FeedbackButton)
         OwnerFeedbackbut.setOnClickListener {
             val intent = Intent(this, ViewFeedback::class.java)
+            intent.putExtra("addminId", addminId)
             startActivity(intent)
         }
 

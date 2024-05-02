@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter
 
 data class TimeTableDC @RequiresApi(Build.VERSION_CODES.O) constructor(
     val shiftID: String = "",
-    val shiftDate: String = "", // Keep as String
+    val shiftDate: String = "",
     val startTime: String = "",
     val endTime: String = "",
     val shiftLength: Double = 0.0,

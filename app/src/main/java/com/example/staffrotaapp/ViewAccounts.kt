@@ -2,9 +2,12 @@ package com.example.staffrotaapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -28,6 +31,9 @@ class ViewAccounts : AppCompatActivity() {
     // ArrayAdapter to populate the ListView
     private lateinit var accountAdapter: ArrayAdapter<String>
 
+    // List to hold all accounts
+    private lateinit var allAccounts: MutableList<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_accounts)
@@ -48,6 +54,9 @@ class ViewAccounts : AppCompatActivity() {
         // Initialize adapter for ListView
         accountAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1)
         accountListView.adapter = accountAdapter
+
+        // Initialize allAccounts list
+        allAccounts = mutableListOf()
 
         // Set up click listeners for buttons
         val accountViewReturn: Button = findViewById(R.id.viewAccountsReturn)
@@ -78,6 +87,19 @@ class ViewAccounts : AppCompatActivity() {
             }
         }
 
+        // Set up SearchView
+        val searchAccounts: SearchView = findViewById(R.id.searchAccounts)
+        searchAccounts.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let { filterAccounts(it) }
+                return true
+            }
+        })
+
         // Fetch and display accounts from Firebase Realtime Database
         fetchAccounts()
     }
@@ -90,6 +112,7 @@ class ViewAccounts : AppCompatActivity() {
                     val employee = employeeSnapshot.getValue(Employee::class.java)
                     if (employee != null) {
                         val accountInfo = "${employee.employeeId}: ${employee.firstName} ${employee.lastName}, ${employee.email}"
+                        allAccounts.add(accountInfo)
                         accountAdapter.add(accountInfo)
                     }
                 }
@@ -102,5 +125,16 @@ class ViewAccounts : AppCompatActivity() {
             }
         })
     }
+
+    // Function to filter accounts based on search query
+    private fun filterAccounts(query: String) {
+        accountAdapter.clear()
+        allAccounts.filter { it.contains(query, ignoreCase = true) }
+            .forEach { filteredAccount ->
+                accountAdapter.add(filteredAccount)
+            }
+        accountAdapter.notifyDataSetChanged()
+    }
 }
+
 
