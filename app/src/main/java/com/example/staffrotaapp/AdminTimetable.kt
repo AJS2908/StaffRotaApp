@@ -88,7 +88,7 @@ class AdminTimetable : AppCompatActivity() {
         reference.orderByChild("shiftDate").equalTo(date).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                shiftsList.clear() // Clear existing shifts list
+                shiftsList.clear() // Clears existing shifts list
                 // Iterate through each shift data
                 for (shiftSnapshot in snapshot.children) {
                     val shiftId = shiftSnapshot.key // Get the shift ID
@@ -96,7 +96,7 @@ class AdminTimetable : AppCompatActivity() {
                     shiftData?.let {
                         // Construct shift information string
                         val shiftInfo = "Employee: ${it.employeeData}, Start Time: ${it.startTime}, End Time: ${it.endTime}"
-                        // Combine shift ID and shift information
+                        // Combines shift ID and shift information
                         shiftsList.add("$shiftId: $shiftInfo")
                     }
                 }
@@ -105,7 +105,7 @@ class AdminTimetable : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle database error
+                // Handles database error
                 Log.e("Timetable", "Error fetching shifts: ${error.message}")
             }
         })

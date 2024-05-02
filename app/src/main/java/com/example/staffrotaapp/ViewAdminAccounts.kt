@@ -41,7 +41,7 @@ class ViewAdminAccounts : AppCompatActivity() {
 
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
-        reference = database.getReference("Admins") // Reference the "Admins" node
+        reference = database.getReference("Admins")
 
         // Initialize ListView
         accountListView = findViewById(R.id.ViewAdminListview)
@@ -73,12 +73,11 @@ class ViewAdminAccounts : AppCompatActivity() {
         accountListView.setOnItemLongClickListener { _, _, position, _ ->
             val adminInfo = accountAdapter.getItem(position) // Get the item at the clicked position
             val adminId = adminInfo?.split(":")?.get(0) // Split the string to get the adminId
-            // Navigate to EditAdminAccount activity and pass the adminId
             val intent = Intent(this, EditAdminAccount::class.java)
             intent.putExtra("adminId", adminId)
             intent.putExtra("addminId", addminId)
             startActivity(intent)
-            true // Consume the long click event
+            true // finish the long click event
         }
 
         // Set up SearchView

@@ -23,7 +23,6 @@ class AdminHoliday : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Set the layout for this activity
         setContentView(R.layout.activity_admin_holiday)
 
         // Initialize adapters for request and confirmed holiday lists
@@ -95,7 +94,7 @@ class AdminHoliday : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle database error
+                // Handles database error
                 Log.e("fetchRequests", "Error fetching Requests: ${error.message}", error.toException())
             }
         })
@@ -128,7 +127,7 @@ class AdminHoliday : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle database error
+                // Handles database error
                 Log.e("fetchConfirmed", "Error fetching Requests: ${error.message}", error.toException())
             }
         })
@@ -174,7 +173,7 @@ class AdminHoliday : AppCompatActivity() {
                                 // Remove the holiday data from the requests path
                                 requestsReference.child(holidayID.toString()).removeValue()
                                     .addOnSuccessListener {
-                                        finish() // Finish activity after confirming
+                                        finish()
                                     }
                                     .addOnFailureListener { exception ->
                                         // Handle error: unable to remove holiday data from requests

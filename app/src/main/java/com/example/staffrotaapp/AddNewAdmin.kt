@@ -58,7 +58,7 @@ class AddNewAdmin : AppCompatActivity() {
             val lName = lastName.text.toString()
             val nINum = nINumber.text.toString()
             val confirmPass = confirm.text.toString()
-            val ownerAcc = ownerAccSwitch.isChecked  // Retrieve the state of the switch
+            val ownerAcc = ownerAccSwitch.isChecked
 
             var hasError = false
             if (user.isEmpty()) {
@@ -91,7 +91,7 @@ class AddNewAdmin : AppCompatActivity() {
             }
 
             if (!hasError) {
-                generateAdminId(ownerAcc)  // Pass ownerAcc as a parameter
+                generateAdminId(ownerAcc)
             }
         }
     }
@@ -103,7 +103,7 @@ class AddNewAdmin : AppCompatActivity() {
         email: String,
         password: String,
         nINumber: String,
-        ownerAcc: Boolean,  // Accept ownerAcc as a parameter
+        ownerAcc: Boolean,
         adminId: Int
     ) {
         val admin = Admin(
@@ -114,7 +114,7 @@ class AddNewAdmin : AppCompatActivity() {
             firstName,
             lastName,
             nINumber,
-            ownerAcc  // Pass ownerAcc to the Admin constructor
+            ownerAcc
         )
 
         reference.child(adminId.toString())

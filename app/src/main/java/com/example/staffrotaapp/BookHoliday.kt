@@ -157,7 +157,7 @@ class BookHoliday : AppCompatActivity() {
                 Log.d("Holiday booking", "request saved successfully") // Navigate to AdminHome activity
                 val intent = Intent(this@BookHoliday, Holiday::class.java)
                 startActivity(intent)
-                finish() // Finish the current activity to prevent navigating back to it from the next activity
+                finish()
             }
             .addOnFailureListener { e ->
                 Log.e("Holiday booking", "Error saving Holiday: ${e.message}", e)

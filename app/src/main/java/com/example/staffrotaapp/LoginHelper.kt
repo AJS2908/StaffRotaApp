@@ -8,7 +8,6 @@ class LoginHelper {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun loginUser(username: String, password: String, onSuccess: () -> Unit, onFailure: (String) -> Unit) {
-        // You can use the username as the email for authentication
         auth.signInWithEmailAndPassword(username, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {

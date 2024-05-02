@@ -19,7 +19,7 @@ class EditAdminAccount : AppCompatActivity() {
     private lateinit var database: FirebaseDatabase
     private lateinit var reference: DatabaseReference
 
-    private lateinit var adminId: String // Received adminId to edit
+    private lateinit var adminId: String
 
     // UI elements
     private lateinit var usernameEditText: EditText

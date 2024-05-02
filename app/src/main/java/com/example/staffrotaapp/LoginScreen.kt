@@ -59,7 +59,7 @@ class LoginScreen : AppCompatActivity() {
                 // Show password
                 password.transformationMethod = null
             } else {
-                // Hide password (mask)
+                // Hide password (mask the password)
                 password.transformationMethod = PasswordTransformationMethod.getInstance()
             }
         }
@@ -90,7 +90,7 @@ class LoginScreen : AppCompatActivity() {
                     Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, HomeScreen::class.java)
                     startActivity(intent)
-                    finish() // Close the current activity
+                    finish() // Closes the current activity
                 } else {
                     // Login failed, display error message
                     Toast.makeText(this, "Login Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()

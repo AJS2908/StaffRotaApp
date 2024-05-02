@@ -263,9 +263,8 @@ class ShiftAssignment : AppCompatActivity() {
                 startActivity(intent)
             }
             .addOnFailureListener { e ->
-                // Log error message if saving the shift fails
+                // Log error message if saving the shift fails and print the stack trace so you can identify the start of the error
                 Log.e("ShiftAssignment", "Error saving shift: ${e.message}", e)
-                // Optionally, you can print the stack trace for more detailed error information
                 e.printStackTrace()
             }
     }

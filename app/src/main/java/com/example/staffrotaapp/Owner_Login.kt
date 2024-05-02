@@ -62,7 +62,7 @@ class Owner_Login : AppCompatActivity() {
 
         // Initialize Firebase Database
         database = FirebaseDatabase.getInstance()
-        reference = database.getReference("Admins") // Reference the "Admins" node
+        reference = database.getReference("Admins") // Reference to the "Admins" node
 
         // Initialize Shared Preferences
         sharedPreferences = getSharedPreferences("AdminPrefs", Context.MODE_PRIVATE)
@@ -115,7 +115,7 @@ class Owner_Login : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle database error
+                // Handles database error
                 Toast.makeText(this@Owner_Login, "Database error", Toast.LENGTH_SHORT).show()
             }
         })

@@ -28,7 +28,7 @@ class AdminLogin : AppCompatActivity() {
     private lateinit var loginButton: Button
     private lateinit var passwordMask: Switch
 
-    // Shared Preferences
+
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,14 +63,14 @@ class AdminLogin : AppCompatActivity() {
                 // Show password
                 passwordEditText.transformationMethod = null
             } else {
-                // Hide password (mask)
+                // Hide password (masking it)
                 passwordEditText.transformationMethod = PasswordTransformationMethod.getInstance()
             }
         }
 
         // Initialize Firebase Database reference
         database = FirebaseDatabase.getInstance()
-        reference = database.getReference("Admins") // Reference the "Admins" node
+        reference = database.getReference("Admins")
 
         // Initialize Shared Preferences
         sharedPreferences = getSharedPreferences("AdminPrefs", Context.MODE_PRIVATE)
@@ -128,7 +128,7 @@ class AdminLogin : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle database error
+                // Handles database error
                 Toast.makeText(this@AdminLogin, "Database error", Toast.LENGTH_SHORT).show()
             }
         })

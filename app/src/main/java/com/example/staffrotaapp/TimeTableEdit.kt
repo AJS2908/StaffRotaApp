@@ -109,7 +109,7 @@ class TimeTableEdit : AppCompatActivity() {
     }
 
     private fun retrieveEmployeeData(shiftId: String, callback: (String) -> Unit) {
-        val shiftRef = reference.child(shiftId) // Assuming shiftId is a valid key for your shifts
+        val shiftRef = reference.child(shiftId)
         shiftRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val employeeData = snapshot.child("employeeData").value.toString()
@@ -148,7 +148,7 @@ class TimeTableEdit : AppCompatActivity() {
         val updates = mapOf<String, Any>(
             "startTime" to startTime,
             "endTime" to endTime,
-            "shiftDate" to selectedDate, // Update the shiftDate with the selectedDate
+            "shiftDate" to selectedDate,
             "shiftLength" to duration,
             "employeeData" to employeeData,
             "shiftID" to shiftIdParam
@@ -156,11 +156,9 @@ class TimeTableEdit : AppCompatActivity() {
 
         shiftRef.updateChildren(updates)
             .addOnSuccessListener {
-                // Handle success, if needed
                 Toast.makeText(this, "Shift data updated successfully", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { e ->
-                // Handle failure
                 Toast.makeText(this, "Failed to update shift data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
@@ -176,8 +174,6 @@ class TimeTableEdit : AppCompatActivity() {
                 .addOnSuccessListener {
                     // Handle success
                     Toast.makeText(this, "Shift deleted successfully", Toast.LENGTH_SHORT).show()
-
-                    // Optionally, navigate back to the previous activity
                     finish()
                 }
                 .addOnFailureListener { e ->

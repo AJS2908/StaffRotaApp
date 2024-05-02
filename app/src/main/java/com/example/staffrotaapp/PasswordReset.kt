@@ -32,7 +32,6 @@ class PasswordReset : AppCompatActivity() {
         resetButton = findViewById(R.id.Send)
         resetPasswordBack = findViewById(R.id.ResetBack)
 
-        // Set click listener for resetButton and test user input and communicate with user what the issue is
         resetButton.setOnClickListener {
             // Retrieve email input from EditText and trim any leading or trailing whitespace
             val email = emailEditText.text.toString().trim()
@@ -47,7 +46,7 @@ class PasswordReset : AppCompatActivity() {
             }
         }
 
-// Set click listener for resetPasswordBack button and redirect user back to Login Screen
+        // Set click listener for resetPasswordBack button and redirect user back to Login Screen
         resetPasswordBack.setOnClickListener {
             // Create an intent to navigate back to the LoginScreen activity
             val intent = Intent(this, LoginScreen::class.java)
