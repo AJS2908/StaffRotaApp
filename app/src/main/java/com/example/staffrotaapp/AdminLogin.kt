@@ -114,7 +114,7 @@ class AdminLogin : AppCompatActivity() {
                     // Authentication successful, proceed to AdminHome activity
                     val intent = Intent(this@AdminLogin, AdminHome::class.java)
                     // Pass admin ID to AdminHome activity
-                    intent.putExtra("adminId", adminId)
+                    intent.putExtra("addminId", adminId)
                     startActivity(intent)
                     finish()
                 } else {

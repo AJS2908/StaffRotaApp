@@ -2,6 +2,7 @@ package com.example.staffrotaapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,6 +14,7 @@ class AdminHome : AppCompatActivity() {
 
         // Retrieve admin ID from intent extras
         val addminId = intent.getStringExtra("addminId")
+        Log.d("Admin id", "addy id: $addminId")
 
         // Set click listener for the button to navigate to AdminProfile activity
         val gotoProfile: Button = findViewById(R.id.AdminProfileBut)

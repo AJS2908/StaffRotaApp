@@ -107,14 +107,15 @@ class ShiftAssignment : AppCompatActivity() {
         })
 
         // Retrieve the adminId passed from the previous activity
-        val adminId = intent.getStringExtra("adminId")
+        val addminId = intent.getStringExtra("addminId")
+        Log.d("Admin id", "addy id: $addminId")
 
         // Set click listener for the return button
         val shiftReturnButton: Button = findViewById(R.id.shiftRetBut)
         shiftReturnButton.setOnClickListener {
             // Navigate back to AdminHome activity
             val intent = Intent(this, AdminHome::class.java).apply {
-                putExtra("adminId", adminId)
+                intent.putExtra("addminId", addminId)
             }
             startActivity(intent)
         }

@@ -53,7 +53,7 @@ class EditEmployee : AppCompatActivity() {
         val editHomeButton: Button = findViewById(R.id.editAccountsReturn)
         editHomeButton.setOnClickListener {
             // Create intent to navigate to AdminHome activity and pass admin ID
-            val intent = Intent(this, HomeScreen::class.java).apply {
+            val intent = Intent(this, AdminHome::class.java).apply {
                 putExtra("addminId", addminId)
             }
             startActivity(intent)

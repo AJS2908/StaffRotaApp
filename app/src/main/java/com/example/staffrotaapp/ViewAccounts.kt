@@ -63,17 +63,16 @@ class ViewAccounts : AppCompatActivity() {
         val accountViewReturn: Button = findViewById(R.id.viewAccountsReturn)
         accountViewReturn.setOnClickListener {
             val intent = Intent(this, AdminHome::class.java).apply {
-                intent.putExtra("addminId", addminId)
-
             }
+            intent.putExtra("addminId", addminId)
             startActivity(intent)
         }
 
         val createAccount: Button = findViewById(R.id.createAccount)
         createAccount.setOnClickListener {
             val intent = Intent(this, CreateNewAccount::class.java).apply {
-                intent.putExtra("addminId", addminId)
             }
+            intent.putExtra("addminId", addminId)
             startActivity(intent)
         }
 
@@ -85,6 +84,7 @@ class ViewAccounts : AppCompatActivity() {
                 val intent = Intent(this@ViewAccounts, EditEmployee::class.java).apply {
                     putExtra("employeeId", employeeId.toInt())
                 }
+                intent.putExtra("addminId", addminId)
                 startActivity(intent)
             }
         }
