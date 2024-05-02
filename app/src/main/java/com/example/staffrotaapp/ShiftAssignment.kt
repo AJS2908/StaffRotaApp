@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.CalendarView
 import android.widget.SearchView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -115,8 +116,8 @@ class ShiftAssignment : AppCompatActivity() {
         shiftReturnButton.setOnClickListener {
             // Navigate back to AdminHome activity
             val intent = Intent(this, AdminHome::class.java).apply {
-                intent.putExtra("addminId", addminId)
             }
+            intent.putExtra("addminId", addminId)
             startActivity(intent)
         }
 
@@ -126,23 +127,36 @@ class ShiftAssignment : AppCompatActivity() {
             val startTimeText = findViewById<TextView>(R.id.startTime).text.toString()
             val endTimeText = findViewById<TextView>(R.id.endTime).text.toString()
 
-            // Parse start time and end time into LocalTime objects
-            val startTime = TimeTableDC.parseLocalTime(startTimeText)
-            val endTime = TimeTableDC.parseLocalTime(endTimeText)
+            // Check if start time and end time are not empty
+            if (startTimeText.isNotEmpty() && endTimeText.isNotEmpty()) {
+                // Check if start time and end time have the correct format
+                if (startTimeText.matches(Regex("\\d{2}:\\d{2}")) && endTimeText.matches(Regex("\\d{2}:\\d{2}"))) {
+                    // Parse start time and end time into LocalTime objects
+                    val startTime = TimeTableDC.parseLocalTime(startTimeText)
+                    val endTime = TimeTableDC.parseLocalTime(endTimeText)
 
-            // Check if end time is after start time
-            if (endTime.isAfter(startTime)) {
-                // Proceed to save the shift using the captured values
-                selectedEmployeeId?.let { employeeId ->
-                    selectedDate?.let { date ->
-                        generateShiftId(startTime, endTime, date)
+                    // Check if end time is after start time
+                    if (endTime.isAfter(startTime)) {
+                        // Proceed to save the shift using the captured values
+                        selectedEmployeeId?.let { employeeId ->
+                            selectedDate?.let { date ->
+                                generateShiftId(startTime, endTime, date)
+                            }
+                        }
+                    } else {
+                        // Log error if end time is not after start time
+                        Log.e("ShiftAssignment", "End time must be after start time")
                     }
+                } else {
+                    // Notify the user that both start and end times should be in the format HH:mm
+                    Toast.makeText(this, "Please enter start and end times in HH:mm format", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                // Log error if end time is not after start time
-                Log.e("ShiftAssignment", "End time must be after start time")
+                // Notify the user that both start and end times are required
+                Toast.makeText(this, "Please enter both start and end times", Toast.LENGTH_SHORT).show()
             }
         }
+
 
         // Fetch employees from the database
         fetchEmployees()
@@ -256,9 +270,9 @@ class ShiftAssignment : AppCompatActivity() {
                 // Log success message if shift is saved successfully
                 Log.d("ShiftAssignment", "Shift saved successfully")
                 // Navigate to ShiftAssignment activity
-                val adminId = intent.getStringExtra("adminId")
+                val addminId = intent.getStringExtra("addminId")
                 val intent = Intent(this, ShiftAssignment::class.java).apply {
-                    putExtra("adminId", adminId)
+                    putExtra("addminId", addminId)
                 }
                 startActivity(intent)
             }

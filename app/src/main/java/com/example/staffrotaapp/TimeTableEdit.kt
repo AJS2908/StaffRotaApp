@@ -1,5 +1,6 @@
 package com.example.staffrotaapp
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -43,6 +44,7 @@ class TimeTableEdit : AppCompatActivity() {
         reference = database.getReference("Timetable")
 
         // Retrieve shift ID passed from the previous activity
+        shiftId = intent.getStringExtra("shiftId") ?: ""
         val addminId = intent.getStringExtra("addminId")
 
         // Debugging statement to check the received shift ID
@@ -157,31 +159,24 @@ class TimeTableEdit : AppCompatActivity() {
         shiftRef.updateChildren(updates)
             .addOnSuccessListener {
                 Toast.makeText(this, "Shift data updated successfully", Toast.LENGTH_SHORT).show()
+                finish()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Failed to update shift data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun deleteShift(shiftId: String) {
-        // Check if the shift ID is not empty
-        if (shiftId.isNotEmpty()) {
-            // Get a reference to the shift to be deleted
-            val shiftRef = reference.child(shiftId)
 
-            // Remove the shift data from the database
-            shiftRef.removeValue()
-                .addOnSuccessListener {
-                    // Handle success
-                    Toast.makeText(this, "Shift deleted successfully", Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-                .addOnFailureListener { e ->
-                    // Handle failure
-                    Toast.makeText(this, "Failed to delete shift: ${e.message}", Toast.LENGTH_SHORT).show()
-                }
-        } else {
-            Toast.makeText(this, "Shift ID is empty", Toast.LENGTH_SHORT).show()
-        }
+    private fun deleteShift(shiftId: String) {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Admin Account")
+            .setMessage("Are you sure you want to delete this admin account?")
+            .setPositiveButton("Yes") { dialog, which ->
+                // Delete the admin account from the database
+                reference.child(shiftId).removeValue()
+                finish() // Finish activity after deleting
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 }

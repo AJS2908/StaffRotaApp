@@ -1,5 +1,6 @@
 package com.example.staffrotaapp
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -134,18 +135,17 @@ class EditEmployee : AppCompatActivity() {
     }
 
     // Function to delete an employee account
+
     private fun deleteEmployeeAccount(employeeId: Int) {
-        reference.child(employeeId.toString()).removeValue()
-            .addOnSuccessListener {
-                // Account deleted successfully
-                Toast.makeText(applicationContext, "Employee account deleted successfully", Toast.LENGTH_SHORT).show()
-                // Redirect to admin's home screen or any other suitable screen
-                startActivity(Intent(applicationContext, AdminHome::class.java))
-                finish()
+        AlertDialog.Builder(this)
+            .setTitle("Delete Admin Account")
+            .setMessage("Are you sure you want to delete this admin account?")
+            .setPositiveButton("Yes") { dialog, which ->
+                // Delete the admin account from the database
+                reference.child(employeeId.toString()).removeValue()
+                finish() // Finish activity after deleting
             }
-            .addOnFailureListener { exception ->
-                // Handle failure to delete account
-                Toast.makeText(applicationContext, "Failed to delete employee account: ${exception.message}", Toast.LENGTH_SHORT).show()
-            }
+            .setNegativeButton("No", null)
+            .show()
     }
 }

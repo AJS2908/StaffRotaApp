@@ -82,7 +82,7 @@
         android:layout_width="379dp"
         android:layout_height="48dp"
         android:background="#E1E1E1"
-        android:text="TextView"
+        android:text="please select an employee"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="20sp"

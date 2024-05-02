@@ -48,7 +48,7 @@
         android:id="@+id/textView2"
         android:layout_width="231dp"
         android:layout_height="53dp"
-        android:text="Username:"
+        android:text="Email:"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

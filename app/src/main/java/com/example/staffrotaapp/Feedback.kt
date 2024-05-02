@@ -61,6 +61,7 @@ class Feedback : AppCompatActivity() {
         if (feedbackKey != null) {
             // Save the feedback under the generated key
             feedbackRef.child(feedbackKey).setValue(feedbackText)
+            finish()
         }
     }
 }

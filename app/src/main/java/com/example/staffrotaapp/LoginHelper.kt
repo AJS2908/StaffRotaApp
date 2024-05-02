@@ -2,6 +2,8 @@
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 
+
+// does nothing but breaks when its deleted
 class LoginHelper {
 
     private val TAG = "LoginHelper"
